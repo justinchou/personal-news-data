@@ -66,9 +66,9 @@ class Run(unittest.TestCase):
         doc2, done2 = live.run(datetime(2026, 11, 17, 10, 5, tzinfo=BJ), prev=doc, fetch=self.fake(log))
         self.assertEqual(done2, [])
         self.assertEqual(doc2["generated_at"], doc["generated_at"])
-        # 10 minutes later: equities open again; US already has its post-close fetch; Globex is on 15 min
+        # 10 minutes later: equities and crypto due again; US already has its post-close fetch; Globex is on 15 min
         _, done3 = live.run(datetime(2026, 11, 17, 10, 10, tzinfo=BJ), prev=doc2, fetch=self.fake(log))
-        self.assertEqual(set(done3), {"hk_equity", "cn_equity"})
+        self.assertEqual(set(done3), {"hk_equity", "cn_equity", "crypto"})
 
     def test_failure_keeps_previous(self):
         t = datetime(2026, 11, 17, 10, 0, tzinfo=BJ)
@@ -80,6 +80,20 @@ class Run(unittest.TestCase):
         self.assertEqual(done, [])
         self.assertEqual(doc2["quotes"]["600900"]["price"], 2.0)
         self.assertIn("down", doc2["groups"]["cn_equity"]["error"])
+
+    def test_crypto_history_append_only(self):
+        import tempfile
+        from pathlib import Path
+        t = datetime(2026, 11, 21, 20, 0, tzinfo=BJ)  # Saturday: only crypto is due after seeding
+        doc, done = live.run(t, prev={}, fetch=self.fake([]))
+        self.assertIn("crypto", done)
+        with tempfile.TemporaryDirectory() as d:
+            p = live.append_history(doc, Path(d))
+            self.assertIsNone(live.append_history(doc, Path(d)))  # same timestamp not duplicated
+            doc2, done2 = live.run(datetime(2026, 11, 21, 20, 10, tzinfo=BJ), prev=doc, fetch=self.fake([]))
+            self.assertEqual(done2, ["crypto"])
+            live.append_history(doc2, Path(d))
+            self.assertEqual(p.read_text().splitlines(), ["time_bj,btc_usd,eth_usd", "2026-11-21T20:00,1.00,1.00", "2026-11-21T20:10,1.00,1.00"])
 
     def test_force(self):
         doc, done = live.run(datetime(2026, 11, 21, 12, 0, tzinfo=BJ), prev={}, force={"all"}, fetch=self.fake([]))  # Saturday

@@ -23,6 +23,8 @@ def main() -> int:
     force = {x.strip() for x in a.force.split(",") if x.strip()} or None
     doc, done = live.run(force=force)
     changed = live.write(doc)
+    if "crypto" in done:
+        live.append_history(doc)
     errs = {g: m["error"] for g, m in doc.get("groups", {}).items() if m.get("error")}
     print(json.dumps({"fetched": done, "changed": changed, "errors": errs,
                       "missing": {g: m.get("missing") for g, m in doc.get("groups", {}).items() if m.get("missing")}}, ensure_ascii=False))

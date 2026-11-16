@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-16T19:26:55+08:00",
+ "generated_at": "2026-11-16T19:30:47+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -14,7 +14,7 @@
   },
   "crypto": {
    "calendar_valid": true,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:30:47+08:00",
    "market": "crypto",
    "missing": [],
    "name": "加密货币（24/7）",
@@ -336,13 +336,13 @@
   },
   "btc": {
    "change_basis": "24h",
-   "change_pct": -1.056,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "change_pct": -1.082,
+   "fetched_at": "2026-11-16T19:30:47+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 65315.58,
-   "price": 64625.95,
-   "quote_time": "2026-11-16T19:26:55+08:00",
+   "price": 64608.85,
+   "quote_time": "2026-11-16T19:30:47+08:00",
    "source": "coinbase",
    "sym": "BTC"
   },
@@ -381,13 +381,13 @@
   },
   "eth": {
    "change_basis": "24h",
-   "change_pct": -0.738,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "change_pct": -0.817,
+   "fetched_at": "2026-11-16T19:30:47+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 1822.55,
-   "price": 1809.1,
-   "quote_time": "2026-11-16T19:26:55+08:00",
+   "price": 1807.66,
+   "quote_time": "2026-11-16T19:30:47+08:00",
    "source": "coinbase",
    "sym": "ETH"
   },

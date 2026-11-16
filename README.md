@@ -5,8 +5,9 @@ Public market data and the session-aware fetch job behind the live prices on
 
 The site reads `data/live/prices.json` from this repo through a same-origin Vercel rewrite
 (`/live/prices.json` → `raw.githubusercontent.com/justinchou/personal-news-data/main/data/live/prices.json`),
-so data updates here never trigger a site redeploy. Crypto (BTC/ETH) is refreshed in the browser directly from
-Coinbase Exchange every 60 s; the file here is the fallback.
+so data updates here never trigger a site redeploy. BTC/ETH are fetched here every 10 minutes, 24/7, and appended to
+`data/history/crypto/YYYY-MM.csv`; the browser also reads Coinbase Exchange every 60 s while the page is visible and
+falls back to the latest value in `prices.json` if that fails.
 
 ## Layout
 
@@ -21,6 +22,7 @@ livedata/live.py                    merge into data/live/prices.json, keep previ
 scripts/fetch_live.py               CLI: one run, --force all|group,..., --status
 tests/                              calendar, parser, gating, failure handling
 data/live/prices.json               latest quotes (Asia/Shanghai timestamps)
+data/history/crypto/YYYY-MM.csv     append-only BTC/ETH every 10 min: time_bj,btc_usd,eth_usd (~150 KB/month)
 ```
 
 ## Schedule
@@ -31,7 +33,7 @@ data/live/prices.json               latest quotes (Asia/Shanghai timestamps)
 | hk_equity | HKEX 09:30–16:10 HKT, half days | 10 min | once, +20 min | Tencent |
 | cn_equity | SSE/SZSE 09:30–11:30, 13:00–15:00 | 10 min | once, +15 min | Tencent |
 | futures_fx (WTI, Brent, COMEX gold, USD/CNY) | CME Globex Sun 18:00 – Fri 17:00 ET, daily break 17:00–18:00 | 15 min | once, +30 min | Tencent |
-| crypto (BTC, ETH) | 24/7 | 30 min (browser: 60 s) | — | Coinbase Exchange |
+| crypto (BTC, ETH) | 24/7 | 10 min + history (browser: 60 s) | — | Coinbase Exchange |
 
 GitHub may start scheduled runs late or skip them under load
 ([docs](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule));
@@ -43,7 +45,8 @@ a fetch is accepted up to 2 minutes early to absorb that jitter.
   Used lightly: one batched request per group per slot, sequential, retries after 5 s / 20 s (honours `Retry-After`),
   previous quotes kept on failure. Delay is not published — each quote carries the source's own quote time.
 - **Coinbase Exchange** public REST: 10 requests/s per IP, burst 15
-  ([docs](https://docs.cdp.coinbase.com/exchange/rest-api/rate-limits)). Change shown is vs. the 24 h open.
+  ([docs](https://docs.cdp.coinbase.com/exchange/rest-api/rate-limits)). The job makes 2 sequential requests per
+  10 minutes; each browser makes 2 per 60 s. Change shown is vs. the 24 h open.
 - Yahoo Finance is deliberately not used here (its help page says the data must not be redistributed,
   [SLN2310](https://help.yahoo.com/kb/SLN2310.html)).
 

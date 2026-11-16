@@ -84,6 +84,34 @@ def run(now: datetime | None = None, *, force: set | None = None, prev: dict | N
     return doc, done
 
 
+HISTORY = ROOT / "data" / "history" / "crypto"
+HIST_KEYS = ("btc", "eth")
+
+
+def append_history(doc: dict, base: Path = HISTORY) -> Path | None:
+    """Append one compact row (Beijing time, BTC, ETH in USD) to data/history/crypto/YYYY-MM.csv.
+
+    Append-only; one file per month (~4.4k rows ≈ 150 KB). Skips if the row's timestamp is already the last line.
+    """
+    meta = (doc.get("groups") or {}).get("crypto") or {}
+    ts = meta.get("fetched_at")
+    q = doc.get("quotes") or {}
+    if not ts or not all(k in q and q[k].get("fetched_at") == ts for k in HIST_KEYS):
+        return None
+    path = base / f"{ts[:7]}.csv"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    row = ",".join([ts[:16]] + [f'{q[k]["price"]:.2f}' for k in HIST_KEYS]) + "\n"
+    if path.exists():
+        lines = path.read_text(encoding="utf-8").splitlines()
+        if lines and lines[-1].split(",")[0] == ts[:16]:
+            return None
+    else:
+        path.write_text("time_bj," + ",".join(f"{k}_usd" for k in HIST_KEYS) + "\n", encoding="utf-8")
+    with path.open("a", encoding="utf-8") as f:
+        f.write(row)
+    return path
+
+
 def _fetch(source: str, codes: list[str], now: datetime) -> dict:
     if source == "tencent":
         return sources.tencent(codes)

@@ -56,8 +56,8 @@ class T(unittest.TestCase):
         self.assertFalse(mc.should_fetch("cn_equity", t, bj(2026, 11, 17, 9, 55)))
         self.assertTrue(mc.should_fetch("cn_equity", t, bj(2026, 11, 17, 9, 50)))
         self.assertTrue(mc.should_fetch("cn_equity", t, bj(2026, 11, 17, 9, 51, 30)))  # late cron start tolerated
-        self.assertFalse(mc.should_fetch("crypto", t, bj(2026, 11, 17, 9, 50)))  # 30-minute server fallback
-        self.assertTrue(mc.should_fetch("crypto", t, bj(2026, 11, 17, 9, 29)))
+        self.assertFalse(mc.should_fetch("crypto", t, bj(2026, 11, 17, 9, 55)))  # 10 minutes, 24/7
+        self.assertTrue(mc.should_fetch("crypto", bj(2026, 11, 21, 3, 0), bj(2026, 11, 21, 2, 50)))  # Saturday night too
         self.assertTrue(mc.should_fetch("cn_equity", bj(2026, 11, 17, 15, 16), bj(2026, 11, 17, 14, 59)))  # once after close
         self.assertFalse(mc.should_fetch("cn_equity", bj(2026, 11, 17, 18, 0), bj(2026, 11, 17, 15, 16)))
         self.assertFalse(mc.should_fetch("cn_equity", bj(2026, 11, 21, 10, 0), bj(2026, 11, 20, 15, 16)))  # weekend

@@ -21,13 +21,14 @@ BJ = ZoneInfo("Asia/Shanghai")
 DOW = {"mon": 0, "tue": 1, "wed": 2, "thu": 3, "fri": 4, "sat": 5, "sun": 6}
 
 # Refresh plan (minutes) per market state; "after_close" = one fetch this long after the close.
-# Crypto is refreshed in the browser (Coinbase Exchange, every 60 s); the job only keeps a 30-minute fallback.
+# Crypto: the job fetches BTC/ETH every 10 min, 24/7, and appends them to data/history/crypto/ (the browser
+# additionally reads Coinbase every 60 s while the page is visible and falls back to the file).
 REFRESH = {
     "us_equity": {"open": 10, "after_close": 20},
     "hk_equity": {"open": 10, "after_close": 20},
     "cn_equity": {"open": 10, "after_close": 15},
     "cme_globex": {"open": 15, "after_close": 30},
-    "crypto": {"open": 30},
+    "crypto": {"open": 10},
 }
 # Scheduled runs fire every 5 minutes but GitHub may start them late; accept a fetch this much early.
 TOLERANCE = timedelta(minutes=2)
