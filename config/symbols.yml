@@ -1,6 +1,7 @@
+# GENERATED from the site's watchlist config (private source repo: scripts/sync_live_symbols.py) — do not edit by hand.
 # Symbols fetched by the live price job. `key` matches the page id on personal-news-site
-# (watchlist slug or asset id); `code` is the Tencent quote code; `market` picks the session calendar
-# in config/market_calendar.yml. Keep in sync with the site's public watchlist.
+# (watchlist slug or asset id); `code` is the Tencent quote code or Coinbase product; `market` picks the
+# session calendar in config/market_calendar.yml. Maintenance guide: docs/watchlist.md.
 sources:
   tencent:
     name: 腾讯行情
@@ -18,73 +19,187 @@ groups:
   us_equity:
     source: tencent
     symbols:
-      - {key: "nvda", code: usNVDA, sym: "NVDA"}
-      - {key: "amd", code: usAMD, sym: "AMD"}
-      - {key: "avgo", code: usAVGO, sym: "AVGO"}
-      - {key: "mrvl", code: usMRVL, sym: "MRVL"}
-      - {key: "arm", code: usARM, sym: "ARM"}
-      - {key: "tsm", code: usTSM, sym: "TSM"}
-      - {key: "asml", code: usASML, sym: "ASML"}
-      - {key: "amat", code: usAMAT, sym: "AMAT"}
-      - {key: "lrcx", code: usLRCX, sym: "LRCX"}
-      - {key: "mu", code: usMU, sym: "MU"}
-      - {key: "sndk", code: usSNDK, sym: "SNDK"}
-      - {key: "wdc", code: usWDC, sym: "WDC"}
-      - {key: "stx", code: usSTX, sym: "STX"}
-      - {key: "vrt", code: usVRT, sym: "VRT"}
-      - {key: "ceg", code: usCEG, sym: "CEG"}
-      - {key: "vst", code: usVST, sym: "VST"}
-      - {key: "gev", code: usGEV, sym: "GEV"}
-      - {key: "anet", code: usANET, sym: "ANET"}
-      - {key: "orcl", code: usORCL, sym: "ORCL"}
-      - {key: "pltr", code: usPLTR, sym: "PLTR"}
-      - {key: "aapl", code: usAAPL, sym: "AAPL"}
-      - {key: "msft", code: usMSFT, sym: "MSFT"}
-      - {key: "googl", code: usGOOGL, sym: "GOOGL"}
-      - {key: "amzn", code: usAMZN, sym: "AMZN"}
-      - {key: "meta", code: usMETA, sym: "META"}
-      - {key: "tsla", code: usTSLA, sym: "TSLA"}
-      - {key: "nflx", code: usNFLX, sym: "NFLX"}
-      - {key: "coin", code: usCOIN, sym: "COIN"}
-      - {key: "mstr", code: usMSTR, sym: "MSTR"}
-      - {key: "hood", code: usHOOD, sym: "HOOD"}
-      - {key: "mara", code: usMARA, sym: "MARA"}
-      - {key: "riot", code: usRIOT, sym: "RIOT"}
-      - {key: "crcl", code: usCRCL, sym: "CRCL"}
-      - {key: "ibit", code: usIBIT, sym: "IBIT"}
-      - {key: "tlt", code: usTLT, sym: "TLT"}
+    - key: nvda
+      code: usNVDA
+      sym: NVDA
+    - key: amd
+      code: usAMD
+      sym: AMD
+    - key: avgo
+      code: usAVGO
+      sym: AVGO
+    - key: mrvl
+      code: usMRVL
+      sym: MRVL
+    - key: arm
+      code: usARM
+      sym: ARM
+    - key: tsm
+      code: usTSM
+      sym: TSM
+    - key: asml
+      code: usASML
+      sym: ASML
+    - key: amat
+      code: usAMAT
+      sym: AMAT
+    - key: lrcx
+      code: usLRCX
+      sym: LRCX
+    - key: mu
+      code: usMU
+      sym: MU
+    - key: sndk
+      code: usSNDK
+      sym: SNDK
+    - key: wdc
+      code: usWDC
+      sym: WDC
+    - key: stx
+      code: usSTX
+      sym: STX
+    - key: vrt
+      code: usVRT
+      sym: VRT
+    - key: ceg
+      code: usCEG
+      sym: CEG
+    - key: vst
+      code: usVST
+      sym: VST
+    - key: gev
+      code: usGEV
+      sym: GEV
+    - key: anet
+      code: usANET
+      sym: ANET
+    - key: orcl
+      code: usORCL
+      sym: ORCL
+    - key: pltr
+      code: usPLTR
+      sym: PLTR
+    - key: aapl
+      code: usAAPL
+      sym: AAPL
+    - key: msft
+      code: usMSFT
+      sym: MSFT
+    - key: googl
+      code: usGOOGL
+      sym: GOOGL
+    - key: amzn
+      code: usAMZN
+      sym: AMZN
+    - key: meta
+      code: usMETA
+      sym: META
+    - key: tsla
+      code: usTSLA
+      sym: TSLA
+    - key: nflx
+      code: usNFLX
+      sym: NFLX
+    - key: coin
+      code: usCOIN
+      sym: COIN
+    - key: mstr
+      code: usMSTR
+      sym: MSTR
+    - key: hood
+      code: usHOOD
+      sym: HOOD
+    - key: mara
+      code: usMARA
+      sym: MARA
+    - key: riot
+      code: usRIOT
+      sym: RIOT
+    - key: crcl
+      code: usCRCL
+      sym: CRCL
+    - key: ibit
+      code: usIBIT
+      sym: IBIT
+    - key: tlt
+      code: usTLT
+      sym: iShares 20+ Year Treasury Bond ETF (TLT)
   hk_equity:
     source: tencent
     symbols:
-      - {key: "0700-hk", code: hk00700, sym: "0700.HK"}
-      - {key: "9988-hk", code: hk09988, sym: "9988.HK"}
-      - {key: "1810-hk", code: hk01810, sym: "1810.HK"}
-      - {key: "0981-hk", code: hk00981, sym: "0981.HK"}
-      - {key: "1347-hk", code: hk01347, sym: "1347.HK"}
-      - {key: "1024-hk", code: hk01024, sym: "1024.HK"}
-      - {key: "9888-hk", code: hk09888, sym: "9888.HK"}
+    - key: 0700-hk
+      code: hk00700
+      sym: 0700.HK
+    - key: 9988-hk
+      code: hk09988
+      sym: 9988.HK
+    - key: 1810-hk
+      code: hk01810
+      sym: 1810.HK
+    - key: 0981-hk
+      code: hk00981
+      sym: 0981.HK
+    - key: 1347-hk
+      code: hk01347
+      sym: 1347.HK
+    - key: 1024-hk
+      code: hk01024
+      sym: 1024.HK
+    - key: 9888-hk
+      code: hk09888
+      sym: 9888.HK
   cn_equity:
     source: tencent
     symbols:
-      - {key: "688256", code: sh688256, sym: "688256"}
-      - {key: "688041", code: sh688041, sym: "688041"}
-      - {key: "300308", code: sz300308, sym: "300308"}
-      - {key: "300502", code: sz300502, sym: "300502"}
-      - {key: "601138", code: sh601138, sym: "601138"}
-      - {key: "000977", code: sz000977, sym: "000977"}
-      - {key: "002371", code: sz002371, sym: "002371"}
-      - {key: "603986", code: sh603986, sym: "603986"}
-      - {key: "600900", code: sh600900, sym: "600900"}
+    - key: '688256'
+      code: sh688256
+      sym: '688256'
+    - key: '688041'
+      code: sh688041
+      sym: '688041'
+    - key: '300308'
+      code: sz300308
+      sym: '300308'
+    - key: '300502'
+      code: sz300502
+      sym: '300502'
+    - key: '601138'
+      code: sh601138
+      sym: '601138'
+    - key: 000977
+      code: sz000977
+      sym: 000977
+    - key: '002371'
+      code: sz002371
+      sym: '002371'
+    - key: '603986'
+      code: sh603986
+      sym: '603986'
+    - key: '600900'
+      code: sh600900
+      sym: '600900'
   futures_fx:
-    market: cme_globex   # USD/CNY trades ~24/5 and rides along with the futures cadence
+    market: cme_globex
     source: tencent
     symbols:
-      - {key: wti, code: hf_CL, sym: "CL", note: NYMEX WTI 连续}
-      - {key: brent, code: hf_OIL, sym: "Brent", note: ICE 布伦特连续}
-      - {key: gold_usd, code: hf_GC, sym: "GC", note: COMEX 黄金连续}
-      - {key: usdcny, code: whUSDCNY, sym: "USD/CNY"}
+    - key: wti
+      code: hf_CL
+      sym: WTI Crude Oil
+    - key: brent
+      code: hf_OIL
+      sym: Brent Crude Oil
+    - key: gold_usd
+      code: hf_GC
+      sym: Gold (USD/oz)
+    - key: usdcny
+      code: whUSDCNY
+      sym: USD/CNY
   crypto:
     source: coinbase
     symbols:
-      - {key: btc, code: BTC-USD, sym: "BTC"}
-      - {key: eth, code: ETH-USD, sym: "ETH"}
+    - key: btc
+      code: BTC-USD
+      sym: Bitcoin
+    - key: eth
+      code: ETH-USD
+      sym: Ethereum

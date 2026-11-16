@@ -15,7 +15,8 @@ falls back to the latest value in `prices.json` if that fails.
 .github/workflows/live-prices.yml   schedule (every 5 min) + manual run; commits data/live only when it changed
 .github/workflows/tests.yml         unit tests
 config/market_calendar.yml          sessions, holidays, early closes per market (official sources cited inline)
-config/symbols.yml                  symbols per group, source labels and delay notes
+config/symbols.yml                  symbols per group, source labels and delay notes (generated — see docs/watchlist.md)
+docs/watchlist.md                   maintaining symbols and the yearly holiday tables (Chinese)
 livedata/market_calendar.py         status(market, now), should_fetch(...) — tiered, session-aware schedule
 livedata/sources.py                 Tencent batched quotes, Coinbase 24h stats; sequential, retry with backoff
 livedata/live.py                    merge into data/live/prices.json, keep previous quotes on failure
