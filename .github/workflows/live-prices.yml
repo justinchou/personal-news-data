@@ -1,0 +1,46 @@
+name: live-prices
+
+# Session-aware refresh of data/live/prices.json. The schedule fires every 5 minutes; scripts/fetch_live.py
+# decides per market (config/market_calendar.yml) whether a fetch is due (10 min for open stock markets,
+# 15 min for futures/FX, 10 min crypto 24/7 with history, one fetch after each close) and exits without a commit otherwise.
+on:
+  schedule:
+    - cron: "2-59/5 * * * *"   # off the top of the hour, when GitHub delays/drops scheduled runs most
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Groups to fetch regardless of schedule: all, or e.g. us_equity,crypto (empty = normal run)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live-prices
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Fetch due markets
+        env:
+          FORCE: ${{ inputs.force }}
+        run: python scripts/fetch_live.py --force "${FORCE:-}"
+      - name: Commit if changed
+        run: |
+          git config user.name "justinchou"
+          git config user.email "2976188+justinchou@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then echo "no change"; exit 0; fi
+          git commit -q -m "chore(data): live prices $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M') Beijing time"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          exit 1
