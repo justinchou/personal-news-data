@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-11-16T19:30:47+08:00",
+ "generated_at": "2026-11-16T19:53:26+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "market": "cn_equity",
    "missing": [],
    "name": "A 股（上交所 / 深交所）",
@@ -14,7 +14,7 @@
   },
   "crypto": {
    "calendar_valid": true,
-   "fetched_at": "2026-11-16T19:30:47+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "market": "crypto",
    "missing": [],
    "name": "加密货币（24/7）",
@@ -25,7 +25,7 @@
   },
   "futures_fx": {
    "calendar_valid": false,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "market": "cme_globex",
    "missing": [],
    "name": "COMEX 黄金 / NYMEX 原油期货（CME Globex）",
@@ -36,7 +36,7 @@
   },
   "hk_equity": {
    "calendar_valid": true,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "market": "hk_equity",
    "missing": [],
    "name": "港股（HKEX 证券市场）",
@@ -47,7 +47,7 @@
   },
   "us_equity": {
    "calendar_valid": true,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "market": "us_equity",
    "missing": [],
    "name": "美股（NYSE / Nasdaq 常规交易）",
@@ -61,7 +61,7 @@
  "quotes": {
   "000977": {
    "change_pct": -5.12,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 54.1,
@@ -72,7 +72,7 @@
   },
   "002371": {
    "change_pct": -1.195,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 553.0,
@@ -83,7 +83,7 @@
   },
   "0700-hk": {
    "change_pct": 0.983,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 386.6,
@@ -94,7 +94,7 @@
   },
   "0981-hk": {
    "change_pct": -5.029,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 48.52,
@@ -105,7 +105,7 @@
   },
   "1024-hk": {
    "change_pct": -2.392,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 25.92,
@@ -116,7 +116,7 @@
   },
   "1347-hk": {
    "change_pct": -4.426,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 72.3,
@@ -127,7 +127,7 @@
   },
   "1810-hk": {
    "change_pct": 0.762,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 28.86,
@@ -138,7 +138,7 @@
   },
   "300308": {
    "change_pct": -12.276,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 466.2,
@@ -149,7 +149,7 @@
   },
   "300502": {
    "change_pct": -11.078,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 187.58,
@@ -160,7 +160,7 @@
   },
   "600900": {
    "change_pct": 1.939,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 29.91,
@@ -171,7 +171,7 @@
   },
   "601138": {
    "change_pct": -9.676,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 40.1,
@@ -182,7 +182,7 @@
   },
   "603986": {
    "change_pct": -9.268,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 246.02,
@@ -193,7 +193,7 @@
   },
   "688041": {
    "change_pct": -6.542,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 203.3,
@@ -204,7 +204,7 @@
   },
   "688256": {
    "change_pct": -8.266,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 978.88,
@@ -215,7 +215,7 @@
   },
   "9888-hk": {
    "change_pct": 1.415,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 74.2,
@@ -226,7 +226,7 @@
   },
   "9988-hk": {
    "change_pct": -0.442,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 90.55,
@@ -237,7 +237,7 @@
   },
   "aapl": {
    "change_pct": 0.392,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 354.88,
@@ -248,7 +248,7 @@
   },
   "amat": {
    "change_pct": -2.743,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 380.95,
@@ -259,7 +259,7 @@
   },
   "amd": {
    "change_pct": -8.754,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 585.3,
@@ -270,7 +270,7 @@
   },
   "amzn": {
    "change_pct": -0.292,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 267.44,
@@ -281,7 +281,7 @@
   },
   "anet": {
    "change_pct": -4.52,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 206.63,
@@ -292,7 +292,7 @@
   },
   "arm": {
    "change_pct": -4.63,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 199.78,
@@ -303,7 +303,7 @@
   },
   "asml": {
    "change_pct": -0.131,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 1497.12,
@@ -314,7 +314,7 @@
   },
   "avgo": {
    "change_pct": -4.762,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 364.36,
@@ -324,31 +324,31 @@
    "sym": "AVGO"
   },
   "brent": {
-   "change_pct": -0.783,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "change_pct": -1.043,
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 95.84,
-   "price": 95.09,
-   "quote_time": "2026-11-16T19:26:01+08:00",
+   "price": 94.84,
+   "quote_time": "2026-11-16T19:53:08+08:00",
    "source": "tencent",
-   "sym": "Brent"
+   "sym": "Brent Crude Oil"
   },
   "btc": {
    "change_basis": "24h",
-   "change_pct": -1.082,
-   "fetched_at": "2026-11-16T19:30:47+08:00",
+   "change_pct": -1.246,
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 65315.58,
-   "price": 64608.85,
-   "quote_time": "2026-11-16T19:30:47+08:00",
+   "price": 64501.59,
+   "quote_time": "2026-11-16T19:53:26+08:00",
    "source": "coinbase",
-   "sym": "BTC"
+   "sym": "Bitcoin"
   },
   "ceg": {
    "change_pct": -0.779,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 282.4,
@@ -359,7 +359,7 @@
   },
   "coin": {
    "change_pct": -2.311,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 130.67,
@@ -370,7 +370,7 @@
   },
   "crcl": {
    "change_pct": -2.538,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 63.82,
@@ -381,19 +381,19 @@
   },
   "eth": {
    "change_basis": "24h",
-   "change_pct": -0.817,
-   "fetched_at": "2026-11-16T19:30:47+08:00",
+   "change_pct": -0.72,
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 1822.55,
-   "price": 1807.66,
-   "quote_time": "2026-11-16T19:30:47+08:00",
+   "price": 1809.42,
+   "quote_time": "2026-11-16T19:53:26+08:00",
    "source": "coinbase",
-   "sym": "ETH"
+   "sym": "Ethereum"
   },
   "gev": {
    "change_pct": -1.877,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 818.49,
@@ -403,19 +403,19 @@
    "sym": "GEV"
   },
   "gold_usd": {
-   "change_pct": -0.14,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "change_pct": -0.141,
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 3886.3,
-   "price": 3880.84,
-   "quote_time": "2026-11-16T19:26:06+08:00",
+   "price": 3880.81,
+   "quote_time": "2026-11-16T19:53:09+08:00",
    "source": "tencent",
-   "sym": "GC"
+   "sym": "Gold (USD/oz)"
   },
   "googl": {
    "change_pct": -0.981,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 298.7,
@@ -426,7 +426,7 @@
   },
   "hood": {
    "change_pct": -4.29,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 81.35,
@@ -437,7 +437,7 @@
   },
   "ibit": {
    "change_pct": -3.518,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 40.36,
@@ -448,7 +448,7 @@
   },
   "lrcx": {
    "change_pct": -3.362,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 233.78,
@@ -459,7 +459,7 @@
   },
   "mara": {
    "change_pct": -2.917,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 7.2,
@@ -470,7 +470,7 @@
   },
   "meta": {
    "change_pct": 2.899,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 623.61,
@@ -481,7 +481,7 @@
   },
   "mrvl": {
    "change_pct": -4.676,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 164.45,
@@ -492,7 +492,7 @@
   },
   "msft": {
    "change_pct": 0.168,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 523.0,
@@ -503,7 +503,7 @@
   },
   "mstr": {
    "change_pct": -2.439,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 114.41,
@@ -514,7 +514,7 @@
   },
   "mu": {
    "change_pct": -2.521,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 798.44,
@@ -525,7 +525,7 @@
   },
   "nflx": {
    "change_pct": -0.861,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 62.69,
@@ -536,7 +536,7 @@
   },
   "nvda": {
    "change_pct": -2.01,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 166.19,
@@ -547,7 +547,7 @@
   },
   "orcl": {
    "change_pct": -1.385,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 127.11,
@@ -558,7 +558,7 @@
   },
   "pltr": {
    "change_pct": -2.092,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 171.58,
@@ -569,7 +569,7 @@
   },
   "riot": {
    "change_pct": -1.739,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 17.83,
@@ -580,7 +580,7 @@
   },
   "sndk": {
    "change_pct": -5.595,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 937.46,
@@ -591,7 +591,7 @@
   },
   "stx": {
    "change_pct": -3.091,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 545.14,
@@ -602,18 +602,18 @@
   },
   "tlt": {
    "change_pct": -0.426,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 79.72,
    "price": 79.38,
    "quote_time": "2026-11-14T05:00:01+08:00",
    "source": "tencent",
-   "sym": "TLT"
+   "sym": "iShares 20+ Year Treasury Bond ETF (TLT)"
   },
   "tsla": {
    "change_pct": -1.819,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 397.45,
@@ -624,7 +624,7 @@
   },
   "tsm": {
    "change_pct": -1.667,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 405.49,
@@ -635,18 +635,18 @@
   },
   "usdcny": {
    "change_pct": -0.058,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 6.670999999999999,
    "price": 6.6671,
-   "quote_time": "2026-11-16T19:26:30+08:00",
+   "quote_time": "2026-11-16T19:52:59+08:00",
    "source": "tencent",
    "sym": "USD/CNY"
   },
   "vrt": {
    "change_pct": -3.611,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 209.64,
@@ -657,7 +657,7 @@
   },
   "vst": {
    "change_pct": -1.115,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 134.51,
@@ -668,7 +668,7 @@
   },
   "wdc": {
    "change_pct": -5.0,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "us_equity",
    "market": "us_equity",
    "prev_close": 311.21,
@@ -678,15 +678,15 @@
    "sym": "WDC"
   },
   "wti": {
-   "change_pct": -0.486,
-   "fetched_at": "2026-11-16T19:26:55+08:00",
+   "change_pct": -0.836,
+   "fetched_at": "2026-11-16T19:53:26+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 88.56,
-   "price": 88.13,
-   "quote_time": "2026-11-16T19:26:05+08:00",
+   "price": 87.82,
+   "quote_time": "2026-11-16T19:53:09+08:00",
    "source": "tencent",
-   "sym": "CL"
+   "sym": "WTI Crude Oil"
   }
  },
  "repo": "https://github.com/justinchou/personal-news-data",
