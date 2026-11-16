@@ -1,0 +1,47 @@
+# Market sessions + holidays used by the session-aware live price job (.github/workflows/live-prices.yml).
+# Times are exchange-local; display converts to Asia/Shanghai. Holidays listed only where an official source
+# was read; outside `valid_through` the calendar falls back to the weekday rule and reports calendar_valid=false.
+markets:
+  us_equity:
+    name: 美股（NYSE / Nasdaq 常规交易）
+    tz: America/New_York
+    sessions: [["09:30", "16:00"]]
+    early_close: {"2026-11-27": "13:00", "2026-12-24": "13:00", "2027-11-26": "13:00"}
+    holidays: [2026-01-01, 2026-01-19, 2026-02-16, 2026-04-03, 2026-05-25, 2026-06-19, 2026-07-03, 2026-09-07, 2026-11-26, 2026-12-25,
+               2027-01-01, 2027-01-18, 2027-02-15, 2027-03-26, 2027-05-31, 2027-06-18, 2027-07-05, 2027-09-06, 2027-11-25, 2027-12-24]
+    valid_through: 2027-12-31
+    source: https://www.nyse.com/markets/hours-calendars
+  hk_equity:
+    name: 港股（HKEX 证券市场）
+    tz: Asia/Hong_Kong
+    # HKEX page lists Morning 09:30–12:00, Extended Morning 12:00–13:00, Afternoon 13:00–16:00 (i.e. no lunch break),
+    # then closing auction 16:00–~16:10. Half days: morning only + closing auction 12:00–~12:10.
+    sessions: [["09:30", "16:10"]]
+    half_day_sessions: [["09:30", "12:10"]]
+    half_days: [2026-02-16, 2026-12-24, 2026-12-31]
+    holidays: [2026-01-01, 2026-02-17, 2026-02-18, 2026-02-19, 2026-04-03, 2026-04-06, 2026-04-07, 2026-05-01, 2026-05-25,
+               2026-06-19, 2026-07-01, 2026-10-01, 2026-10-19, 2026-12-25]
+    valid_through: 2026-12-31
+    source: https://www.hkex.com.hk/Services/Trading-hours-and-Severe-Weather-Arrangements/Trading-Hours/Securities-Market?sc_lang=en ; https://www.hkex.com.hk/-/media/HKEX-Market/Services/Circulars-and-Notices/Participant-and-Members-Circulars/SEHK/2025/ce_SEHK_CT_075_2025.pdf
+  cn_equity:
+    name: A 股（上交所 / 深交所）
+    tz: Asia/Shanghai
+    sessions: [["09:30", "11:30"], ["13:00", "15:00"]]
+    # 上证公告〔2025〕45号 (weekday closures only; weekend make-up workdays are still closed for trading)
+    holidays: [2026-01-01, 2026-01-02, 2026-02-16, 2026-02-17, 2026-02-18, 2026-02-19, 2026-02-20, 2026-02-23, 2026-04-06,
+               2026-05-01, 2026-05-04, 2026-05-05, 2026-06-19, 2026-09-25, 2026-10-01, 2026-10-02, 2026-10-05, 2026-10-06, 2026-10-07]
+    valid_through: 2026-12-31
+    source: https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml ; hours per HKEX Stock Connect table (SSE/SZSE 09:30–11:30, 13:00–15:00)
+  cme_globex:
+    name: COMEX 黄金 / NYMEX 原油期货（CME Globex）
+    tz: America/New_York
+    # Sunday–Friday 18:00–17:00 ET with a 60-minute break from 17:00 ET (CL: 17:00–16:00 CT = same ET window).
+    weekly: {open: ["sun", "18:00"], close: ["fri", "17:00"], daily_break: ["17:00", "18:00"]}
+    holidays: []   # CME holiday schedules (abbreviated sessions) not loaded: treated as open → at worst one extra fetch
+    valid_through: null
+    source: https://www.cmegroup.com/markets/metals/precious/gold.contractSpecs.html ; https://www.cmegroup.com/markets/energy/crude-oil/light-sweet-crude.contractSpecs.html
+  crypto:
+    name: 加密货币（24/7）
+    tz: UTC
+    always_open: true
+    source: Coinbase Exchange / CoinGecko trade continuously
