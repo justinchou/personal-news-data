@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-17T16:02:00+08:00",
+ "generated_at": "2026-11-17T16:12:00+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -14,7 +14,7 @@
   },
   "crypto": {
    "calendar_valid": true,
-   "fetched_at": "2026-11-17T16:02:00+08:00",
+   "fetched_at": "2026-11-17T16:12:00+08:00",
    "market": "crypto",
    "missing": [],
    "name": "加密货币（24/7）",
@@ -40,9 +40,9 @@
    "market": "hk_equity",
    "missing": [],
    "name": "港股（HKEX 证券市场）",
-   "next_close_bj": "2026-11-17 16:10",
-   "next_open_bj": null,
-   "open": true,
+   "next_close_bj": null,
+   "next_open_bj": "2026-11-18 09:30",
+   "open": false,
    "source": "tencent"
   },
   "us_equity": {
@@ -336,13 +336,13 @@
   },
   "btc": {
    "change_basis": "24h",
-   "change_pct": 0.367,
-   "fetched_at": "2026-11-17T16:02:00+08:00",
+   "change_pct": 0.262,
+   "fetched_at": "2026-11-17T16:12:00+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 64401.18,
-   "price": 64637.83,
-   "quote_time": "2026-11-17T16:02:00+08:00",
+   "price": 64570.06,
+   "quote_time": "2026-11-17T16:12:00+08:00",
    "source": "coinbase",
    "sym": "Bitcoin"
   },
@@ -381,13 +381,13 @@
   },
   "eth": {
    "change_basis": "24h",
-   "change_pct": 1.441,
-   "fetched_at": "2026-11-17T16:02:00+08:00",
+   "change_pct": 1.423,
+   "fetched_at": "2026-11-17T16:12:00+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 1804.39,
-   "price": 1830.39,
-   "quote_time": "2026-11-17T16:02:00+08:00",
+   "price": 1830.06,
+   "quote_time": "2026-11-17T16:12:00+08:00",
    "source": "coinbase",
    "sym": "Ethereum"
   },
