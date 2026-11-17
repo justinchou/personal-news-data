@@ -1,30 +1,64 @@
 name: live-prices
 
-# Session-aware refresh of data/live/prices.json. The schedule fires every 5 minutes; scripts/fetch_live.py
-# decides per market (config/market_calendar.yml) whether a fetch is due (10 min for open stock markets,
-# 15 min for futures/FX, 10 min crypto 24/7 with history, one fetch after each close) and exits without a commit otherwise.
-# (schedule re-registered 2026-11-16)
+# Session-aware refresh of data/live/prices.json, run entirely on GitHub as a self-renewing runner loop:
+#   - one "loop" job runs scripts/live_loop.sh: every 5 minutes (:02, :07, …) scripts/fetch_live.py decides per market
+#     (config/market_calendar.yml) whether a fetch is due and data/ is committed only when it changed;
+#   - after ~5h40m (GitHub's job limit is 6h) the job dispatches the next run of this workflow and exits; the
+#     concurrency group holds the new run until this one has finished, so two loops never overlap;
+#   - the cron below is only a watchdog: GitHub drops or delays scheduled runs (badly on new repos and for frequent
+#     crons), so it is not relied on for cadence. A watchdog run exits within seconds when a loop run is active or
+#     queued, and otherwise starts the loop itself (e.g. after a failed or cancelled loop).
+# To stop everything: Actions → live-prices → "…" → Disable workflow.
 on:
   schedule:
-    - cron: "2-59/5 * * * *"   # off the top of the hour, when GitHub delays/drops scheduled runs most
+    - cron: "11,41 * * * *"   # watchdog, off the top of the hour
   workflow_dispatch:
     inputs:
       force:
-        description: "Groups to fetch regardless of schedule: all, or e.g. us_equity,crypto (empty = normal run)"
+        description: "Groups to fetch on the first iteration regardless of schedule: all, or e.g. us_equity,crypto"
         required: false
         default: ""
+      minutes:
+        description: "Loop length in minutes before handing over to the next run (max 340)"
+        required: false
+        default: "340"
+      mode:
+        description: "loop = start a loop (waits for any active one); watchdog = exit if a loop is active"
+        required: false
+        default: "loop"
+        type: choice
+        options: [loop, watchdog]
 
 permissions:
   contents: write
-
-concurrency:
-  group: live-prices
-  cancel-in-progress: false
+  actions: write
 
 jobs:
-  fetch:
+  guard:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 3
+    outputs:
+      start: ${{ steps.g.outputs.start }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts
+      - id: g
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MODE: ${{ github.event_name == 'schedule' && 'watchdog' || inputs.mode }}
+        run: |
+          if [ "$MODE" = "watchdog" ]; then python3 scripts/loop_guard.py
+          else echo "start=true" >> "$GITHUB_OUTPUT"; fi
+
+  loop:
+    needs: guard
+    if: needs.guard.outputs.start == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    concurrency:
+      group: live-prices-loop
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -32,16 +66,16 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
-      - name: Fetch due markets
+      - name: Fetch loop
         env:
           FORCE: ${{ inputs.force }}
-        run: python scripts/fetch_live.py --force "${FORCE:-}"
-      - name: Commit if changed
+          MINUTES: ${{ inputs.minutes }}
         run: |
-          git config user.name "justinchou"
-          git config user.email "2976188+justinchou@users.noreply.github.com"
-          git add data
-          if git diff --cached --quiet; then echo "no change"; exit 0; fi
-          git commit -q -m "chore(data): live prices $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M') Beijing time"
-          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
-          exit 1
+          m=${MINUTES:-340}; case "$m" in ''|*[!0-9]*) m=340;; esac; [ "$m" -gt 340 ] && m=340
+          LOOP_MINUTES=$m scripts/live_loop.sh
+      - name: Hand over to the next loop run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in 1 2 3; do gh workflow run live-prices.yml --repo "$GITHUB_REPOSITORY" --ref main && exit 0; sleep 10; done
+          echo "::error::could not dispatch the next loop run; the watchdog cron will restart it"; exit 1

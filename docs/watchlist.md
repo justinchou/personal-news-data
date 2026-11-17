@@ -2,9 +2,9 @@
 
 ## symbols.yml 是生成文件
 
-`config/symbols.yml` 由站点源仓库的关注标的配置（watchlist）通过 `scripts/sync_live_symbols.py --write` 生成，
-**不要手改**；在源仓库增删改关注标的后重新生成，然后在这里 `git pull --rebase` → commit → push
-（定时任务每几分钟会提交数据，先拉再推）。
+`config/symbols.yml` 由站点源仓库的资产行情配置（watchlist）通过 `scripts/sync_live_symbols.py --write` 生成，
+**不要手改**；在源仓库增删改资产行情标的后重新生成，然后在这里 `git pull --rebase` → commit → push
+（行情循环每 5 分钟可能提交数据，先拉再推）。
 
 字段：
 - `groups.<组>.source`：`tencent` 或 `coinbase`；`market`（可选）：使用哪个交易日历，缺省 = 组名。
@@ -34,4 +34,11 @@
 
 ## 手动运行
 
-Actions → live-prices → Run workflow；`force` 留空 = 按日历正常判断，填 `all` 或组名（逗号分隔）= 强制抓取。
+Actions → live-prices → Run workflow；`force` 留空 = 按日历正常判断，填 `all` 或组名（逗号分隔）= 第一轮强制抓取。
+`mode=loop`（默认）启动一个循环；已有循环在跑时新循环会排队，等当前循环结束再接上。`mode=watchdog` 只做看门狗检查，已有循环就立即退出。`minutes` 用来缩短测试循环。
+
+## 调度方式（只在 GitHub 上运行）
+
+- 一个 Actions 任务内循环约 5 小时 40 分钟，每 5 分钟（:02、:07 …）按日历抓一次，数据有变化才提交；结束前自动触发下一轮（GitHub 单个任务最长 6 小时）。
+- 定时任务 `11,41 * * * *` 只当看门狗：已有循环在跑就几秒内退出；循环挂了、被取消或没接上时，由它重新拉起。
+- 同一时间最多一个循环在跑（并发组 `live-prices-loop`）。要彻底停止：Actions → live-prices → Disable workflow。
