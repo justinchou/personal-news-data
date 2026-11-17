@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-18T04:42:00+08:00",
+ "generated_at": "2026-11-18T04:47:00+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -25,7 +25,7 @@
   },
   "futures_fx": {
    "calendar_valid": false,
-   "fetched_at": "2026-11-18T04:32:00+08:00",
+   "fetched_at": "2026-11-18T04:47:00+08:00",
    "market": "cme_globex",
    "missing": [],
    "name": "COMEX 黄金 / NYMEX 原油期货（CME Globex）",
@@ -324,13 +324,13 @@
    "sym": "AVGO"
   },
   "brent": {
-   "change_pct": 0.627,
-   "fetched_at": "2026-11-18T04:32:00+08:00",
+   "change_pct": 0.541,
+   "fetched_at": "2026-11-18T04:47:00+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 92.44,
-   "price": 93.02,
-   "quote_time": "2026-11-18T04:30:59+08:00",
+   "price": 92.94,
+   "quote_time": "2026-11-18T04:45:58+08:00",
    "source": "tencent",
    "sym": "Brent Crude Oil"
   },
@@ -403,13 +403,13 @@
    "sym": "GEV"
   },
   "gold_usd": {
-   "change_pct": -0.033,
-   "fetched_at": "2026-11-18T04:32:00+08:00",
+   "change_pct": -0.016,
+   "fetched_at": "2026-11-18T04:47:00+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 3853.0,
-   "price": 3851.71,
-   "quote_time": "2026-11-18T04:31:02+08:00",
+   "price": 3852.39,
+   "quote_time": "2026-11-18T04:46:00+08:00",
    "source": "tencent",
    "sym": "Gold (USD/oz)"
   },
@@ -635,7 +635,7 @@
   },
   "usdcny": {
    "change_pct": 0.026,
-   "fetched_at": "2026-11-18T04:32:00+08:00",
+   "fetched_at": "2026-11-18T04:47:00+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 6.6642,
@@ -678,13 +678,13 @@
    "sym": "WDC"
   },
   "wti": {
-   "change_pct": -0.14,
-   "fetched_at": "2026-11-18T04:32:00+08:00",
+   "change_pct": -0.222,
+   "fetched_at": "2026-11-18T04:47:00+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 85.72,
-   "price": 85.6,
-   "quote_time": "2026-11-18T04:31:01+08:00",
+   "price": 85.53,
+   "quote_time": "2026-11-18T04:45:58+08:00",
    "source": "tencent",
    "sym": "WTI Crude Oil"
   }
