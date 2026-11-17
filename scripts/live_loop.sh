@@ -46,6 +46,7 @@ while :; do
   echo "::endgroup::"
   now=$(date +%s)
   next=$(( (now - offset) / interval * interval + interval + offset ))
+  (( next - now < 60 )) && next=$(( next + interval ))   # first iteration started just before a slot
   if (( next > end )); then echo "loop done after $n iterations — $(bj) Beijing time"; break; fi
   sleep $(( next - now ))
 done
