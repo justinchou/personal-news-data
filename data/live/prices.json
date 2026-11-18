@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-18T19:12:00+08:00",
+ "generated_at": "2026-11-18T19:17:00+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -25,7 +25,7 @@
   },
   "futures_fx": {
    "calendar_valid": false,
-   "fetched_at": "2026-11-18T19:02:00+08:00",
+   "fetched_at": "2026-11-18T19:17:00+08:00",
    "market": "cme_globex",
    "missing": [],
    "name": "COMEX 黄金 / NYMEX 原油期货（CME Globex）",
@@ -324,13 +324,13 @@
    "sym": "AVGO"
   },
   "brent": {
-   "change_pct": -0.526,
-   "fetched_at": "2026-11-18T19:02:00+08:00",
+   "change_pct": -0.462,
+   "fetched_at": "2026-11-18T19:17:00+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 93.14,
-   "price": 92.65,
-   "quote_time": "2026-11-18T19:01:02+08:00",
+   "price": 92.71,
+   "quote_time": "2026-11-18T19:16:02+08:00",
    "source": "tencent",
    "sym": "Brent Crude Oil"
   },
@@ -403,13 +403,13 @@
    "sym": "GEV"
   },
   "gold_usd": {
-   "change_pct": -2.372,
-   "fetched_at": "2026-11-18T19:02:00+08:00",
+   "change_pct": -2.604,
+   "fetched_at": "2026-11-18T19:17:00+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 3864.2,
-   "price": 3772.56,
-   "quote_time": "2026-11-18T19:01:07+08:00",
+   "price": 3763.59,
+   "quote_time": "2026-11-18T19:16:07+08:00",
    "source": "tencent",
    "sym": "Gold (USD/oz)"
   },
@@ -635,12 +635,12 @@
   },
   "usdcny": {
    "change_pct": -0.003,
-   "fetched_at": "2026-11-18T19:02:00+08:00",
+   "fetched_at": "2026-11-18T19:17:00+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 6.665900000000001,
    "price": 6.6657,
-   "quote_time": "2026-11-18T19:01:31+08:00",
+   "quote_time": "2026-11-18T19:16:26+08:00",
    "source": "tencent",
    "sym": "USD/CNY"
   },
@@ -678,13 +678,13 @@
    "sym": "WDC"
   },
   "wti": {
-   "change_pct": -1.004,
-   "fetched_at": "2026-11-18T19:02:00+08:00",
+   "change_pct": -0.91,
+   "fetched_at": "2026-11-18T19:17:00+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 84.65,
-   "price": 83.8,
-   "quote_time": "2026-11-18T19:01:05+08:00",
+   "price": 83.88,
+   "quote_time": "2026-11-18T19:16:07+08:00",
    "source": "tencent",
    "sym": "WTI Crude Oil"
   }
