@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-19T05:52:00+08:00",
+ "generated_at": "2026-11-19T06:02:00+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -14,7 +14,7 @@
   },
   "crypto": {
    "calendar_valid": true,
-   "fetched_at": "2026-11-19T05:52:00+08:00",
+   "fetched_at": "2026-11-19T06:02:00+08:00",
    "market": "crypto",
    "missing": [],
    "name": "加密货币（24/7）",
@@ -29,9 +29,9 @@
    "market": "cme_globex",
    "missing": [],
    "name": "COMEX 黄金 / NYMEX 原油期货（CME Globex）",
-   "next_close_bj": "2026-11-19 06:00",
-   "next_open_bj": null,
-   "open": true,
+   "next_close_bj": null,
+   "next_open_bj": "2026-11-19 07:00",
+   "open": false,
    "source": "tencent"
   },
   "hk_equity": {
@@ -336,13 +336,13 @@
   },
   "btc": {
    "change_basis": "24h",
-   "change_pct": -3.138,
-   "fetched_at": "2026-11-19T05:52:00+08:00",
+   "change_pct": -3.668,
+   "fetched_at": "2026-11-19T06:02:00+08:00",
    "group": "crypto",
    "market": "crypto",
-   "prev_close": 64269.27,
-   "price": 62252.41,
-   "quote_time": "2026-11-19T05:52:00+08:00",
+   "prev_close": 64657.2,
+   "price": 62285.49,
+   "quote_time": "2026-11-19T06:02:00+08:00",
    "source": "coinbase",
    "sym": "Bitcoin"
   },
@@ -381,13 +381,13 @@
   },
   "eth": {
    "change_basis": "24h",
-   "change_pct": -2.362,
-   "fetched_at": "2026-11-19T05:52:00+08:00",
+   "change_pct": -2.786,
+   "fetched_at": "2026-11-19T06:02:00+08:00",
    "group": "crypto",
    "market": "crypto",
-   "prev_close": 1803.79,
-   "price": 1761.19,
-   "quote_time": "2026-11-19T05:52:00+08:00",
+   "prev_close": 1812.36,
+   "price": 1761.86,
+   "quote_time": "2026-11-19T06:02:00+08:00",
    "source": "coinbase",
    "sym": "Ethereum"
   },
