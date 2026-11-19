@@ -1,17 +1,23 @@
 name: live-prices
 
-# Session-aware refresh of data/live/prices.json, run entirely on GitHub as a self-renewing runner loop:
-#   - one "loop" job runs scripts/live_loop.sh: every 5 minutes (:02, :07, …) scripts/fetch_live.py decides per market
-#     (config/market_calendar.yml) whether a fetch is due and data/ is committed only when it changed;
-#   - after ~5h40m (GitHub's job limit is 6h) the job dispatches the next run of this workflow and exits; the
-#     concurrency group holds the new run until this one has finished, so two loops never overlap;
-#   - the cron below is only a watchdog: GitHub drops or delays scheduled runs (badly on new repos and for frequent
-#     crons), so it is not relied on for cadence. A watchdog run exits within seconds when a loop run is active or
-#     queued, and otherwise starts the loop itself (e.g. after a failed or cancelled loop).
+# Session-aware refresh of data/live/prices.json.
+# The Actions run list shows two kinds of runs (see run-name):
+#   - collector: the loop job. Its wall clock is ~5h40 of sleep. Each cycle is a few seconds.
+#     Open the run and read the latest "summary" line, or data/live/status.json on main, for the
+#     last successful fetch. Do not read the job duration as request time.
+#   - watchdog: cron 11,41 * * * * (and manual mode=watchdog). It exits in seconds when a collector
+#     is active or queued, and the collector job is skipped. That skip is the healthy path.
+#     GitHub often drops this cron for hours; it is only a backstop, not the cadence.
+# Cadence is the collector: every 5 minutes (:02, :07, …) scripts/fetch_live.py asks the calendar
+# which groups are due. After ~5h40 (the job limit is 6h) the job dispatches the next run and exits.
+# Concurrency group live-prices-loop (cancel-in-progress: false) holds the new run until this one
+# finishes, so two collectors never write at once. Keep that group name: renaming it lets an old
+# in-flight collector overlap a new one.
 # To stop everything: Actions → live-prices → "…" → Disable workflow.
+run-name: ${{ (github.event_name == 'schedule' || inputs.mode == 'watchdog') && 'watchdog' || 'collector' }}
 on:
   schedule:
-    - cron: "11,41 * * * *"   # watchdog, off the top of the hour
+    - cron: "11,41 * * * *"   # watchdog, off the top of the hour. UTC. Not the fetch cadence.
   workflow_dispatch:
     inputs:
       force:
@@ -23,7 +29,7 @@ on:
         required: false
         default: "340"
       mode:
-        description: "loop = start a loop (waits for any active one); watchdog = exit if a loop is active"
+        description: "loop = start a collector (waits for any active one); watchdog = exit if a collector is active"
         required: false
         default: "loop"
         type: choice
@@ -35,6 +41,7 @@ permissions:
 
 jobs:
   guard:
+    name: ${{ (github.event_name == 'schedule' || inputs.mode == 'watchdog') && 'watchdog' || 'gate' }}
     runs-on: ubuntu-latest
     timeout-minutes: 3
     outputs:
@@ -42,16 +49,20 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          sparse-checkout: scripts
+          sparse-checkout: |
+            scripts
+            livedata
+            data/live
       - id: g
         env:
           GH_TOKEN: ${{ github.token }}
           MODE: ${{ github.event_name == 'schedule' && 'watchdog' || inputs.mode }}
         run: |
           if [ "$MODE" = "watchdog" ]; then python3 scripts/loop_guard.py
-          else echo "start=true" >> "$GITHUB_OUTPUT"; fi
+          else echo "start=true" >> "$GITHUB_OUTPUT"; echo "gate: starting collector" >> "$GITHUB_STEP_SUMMARY"; fi
 
   loop:
+    name: collector
     needs: guard
     if: needs.guard.outputs.start == 'true'
     runs-on: ubuntu-latest
