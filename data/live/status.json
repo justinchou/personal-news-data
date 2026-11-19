@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-11-19T15:12:01+08:00",
+ "generated_at": "2026-11-19T15:17:00+08:00",
  "groups": {
   "cn_equity": {
-   "duration_ms": 1976,
+   "duration_ms": 1125,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-19T14:52:00+08:00",
+   "fetched_at": "2026-11-19T15:17:00+08:00",
    "health": "closed",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -16,8 +16,8 @@
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 1,
-   "status": "closed"
+   "source_lag_s": 42,
+   "status": "fetched"
   },
   "crypto": {
    "duration_ms": 92,
@@ -35,13 +35,13 @@
    "quote_time_origin": "exchange",
    "source": "coinbase",
    "source_lag_s": 2,
-   "status": "fetched"
+   "status": "not_due"
   },
   "futures_fx": {
-   "duration_ms": 1741,
+   "duration_ms": 863,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-19T15:02:00+08:00",
+   "fetched_at": "2026-11-19T15:17:00+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -52,8 +52,8 @@
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 58,
-   "status": "not_due"
+   "source_lag_s": 68,
+   "status": "fetched"
   },
   "hk_equity": {
    "duration_ms": 1083,
@@ -71,7 +71,7 @@
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 907,
-   "status": "fetched"
+   "status": "not_due"
   },
   "us_equity": {
    "duration_ms": null,
@@ -93,7 +93,7 @@
   }
  },
  "note": "generated_at is the last cycle that observed any group. health and fetched_at are per group. An unchanged price with a new fetched_at is a successful observation. closed is not a failure.",
- "ran_at": "2026-11-19T15:12:01+08:00",
+ "ran_at": "2026-11-19T15:17:00+08:00",
  "role": "collector",
- "summary": "us_equity=closed hk_equity=fetched/1083ms cn_equity=closed futures_fx=not_due crypto=fetched/92ms"
+ "summary": "us_equity=closed hk_equity=not_due cn_equity=fetched/1125ms futures_fx=fetched/863ms crypto=not_due"
 }
