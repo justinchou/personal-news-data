@@ -76,21 +76,90 @@ def _one(plan: dict, fetch, now: datetime) -> dict:
     }
 
 
-def _fetch_due(plans: list[dict], fetch, now: datetime) -> dict:
-    """Coinbase (or any non-Tencent source) may overlap the Tencent chain. Tencent stays serial."""
-    tencent = [p for p in plans if p["source"] == "tencent"]
-    other = [p for p in plans if p["source"] != "tencent"]
+def _cooldown_until(doc: dict, source: str, now: datetime) -> datetime | None:
+    raw = (doc.get("cooldowns") or {}).get(source)
+    until = freshness.parse_time(raw if isinstance(raw, str) else None)
+    if until is not None and until > now:
+        return until
+    return None
+
+
+def _set_cooldown(doc: dict, source: str, until: datetime) -> str:
+    """Remember the later of the stored cooldown and `until`. Returns the ISO time we will honor."""
+    until = until.astimezone(BJ)
+    cds = doc.setdefault("cooldowns", {})
+    prev = freshness.parse_time(cds.get(source) if isinstance(cds.get(source), str) else None)
+    if prev is not None and prev > until:
+        until = prev
+    iso = until.isoformat(timespec="seconds")
+    cds[source] = iso
+    return iso
+
+
+def _expire_cooldowns(doc: dict, now: datetime) -> None:
+    cds = doc.get("cooldowns")
+    if not cds:
+        return
+    for source, raw in list(cds.items()):
+        until = freshness.parse_time(raw if isinstance(raw, str) else None)
+        if until is None or until <= now:
+            cds.pop(source, None)
+    if not cds:
+        doc.pop("cooldowns", None)
+
+
+def _deferred(until: datetime, now: datetime) -> dict:
+    return {
+        "got": None,
+        "error": sources.RateLimited("cooldown", retry_at=until, wait_s=(until - now).total_seconds()),
+        "duration_ms": 0,
+        "http": {},
+        "deferred": True,
+    }
+
+
+def _fetch_due(plans: list[dict], fetch, now: datetime, doc: dict) -> dict:
+    """Coinbase (or any non-Tencent source) may overlap the Tencent chain. Tencent stays serial.
+
+    A source still inside a server Retry-After is not called. After one rate-limit
+    response, later groups of that same source are deferred too. The other source
+    keeps going.
+    """
+    ready = []
+    out = {}
+    for plan in plans:
+        until = _cooldown_until(doc, plan["source"], now)
+        if until is not None:
+            out[plan["gid"]] = _deferred(until, now)
+        else:
+            ready.append(plan)
+    tencent = [p for p in ready if p["source"] == "tencent"]
+    other = [p for p in ready if p["source"] != "tencent"]
 
     def seq(batch: list[dict]) -> dict:
-        return {p["gid"]: _one(p, fetch, now) for p in batch}
+        found = {}
+        frozen = None
+        for plan in batch:
+            if frozen is not None:
+                found[plan["gid"]] = _deferred(frozen.retry_at, now)
+                continue
+            result = _one(plan, fetch, now)
+            found[plan["gid"]] = result
+            err = result.get("error")
+            if isinstance(err, sources.RateLimited):
+                frozen = err
+        return found
 
+    if not ready:
+        return out
     if tencent and other:
         with ThreadPoolExecutor(max_workers=1) as pool:
             fut = pool.submit(seq, other)
-            merged = seq(tencent)
-            merged.update(fut.result())
-        return merged
-    return seq(tencent or other)
+            out.update(seq(tencent))
+            out.update(fut.result())
+        return out
+    out.update(seq(tencent or other))
+    return out
 
 
 def _apply(doc: dict, plan: dict, result: dict, now: datetime) -> str:
@@ -108,11 +177,24 @@ def _apply(doc: dict, plan: dict, result: dict, now: datetime) -> str:
         meta.pop("http_wait_s", None)
     err = result["error"]
     got = result["got"] or {}
+    if isinstance(err, sources.RateLimited):
+        eligible = _set_cooldown(doc, plan["source"], err.retry_at)
+        meta["status"] = "rate_limited"
+        meta["next_eligible_at"] = eligible
+        meta["error"] = f"RateLimited: next eligible {eligible}"[:160]
+        meta["error_at"] = iso
+        meta.pop("quote_time_origin", None)
+        if result.get("deferred"):
+            meta.pop("duration_ms", None)
+            meta.pop("http_attempts", None)
+            meta.pop("http_wait_s", None)
+        return "rate_limited"
     if err is not None or not got:
         meta["status"] = "failed"
         meta["error"] = (f"{type(err).__name__}: {str(err)[:160]}" if err is not None else "empty quote response")
         meta["error_at"] = iso
         meta.pop("quote_time_origin", None)
+        meta.pop("next_eligible_at", None)
         return "failed"
     changed = False
     missing = []
@@ -138,6 +220,7 @@ def _apply(doc: dict, plan: dict, result: dict, now: datetime) -> str:
         meta["error"] = "empty quote response"
         meta["error_at"] = iso
         meta["missing"] = missing
+        meta.pop("next_eligible_at", None)
         return "failed"
     for key, quote in fresh.items():
         doc["quotes"][key] = quote
@@ -145,6 +228,7 @@ def _apply(doc: dict, plan: dict, result: dict, now: datetime) -> str:
     meta["missing"] = missing
     meta.pop("error", None)
     meta.pop("error_at", None)
+    meta.pop("next_eligible_at", None)
     origin = http.get("quote_time_origin")
     if not origin:
         if plan["source"] == "tencent":
@@ -185,6 +269,7 @@ def run(now: datetime | None = None, *, force: set | None = None, prev: dict | N
     doc = json.loads(json.dumps(base))
     doc.setdefault("quotes", {})
     groups = doc.setdefault("groups", {})
+    _expire_cooldowns(doc, now)
     fetch = fetch or _fetch
     plans = []
     for gid, g in cfg["groups"].items():
@@ -205,7 +290,7 @@ def run(now: datetime | None = None, *, force: set | None = None, prev: dict | N
             "open": meta.get("open"),
         })
     due = [p for p in plans if p["due"]]
-    results = _fetch_due(due, fetch, now) if due else {}
+    results = _fetch_due(due, fetch, now, doc) if due else {}
     outcomes = {}
     done = []
     for plan in plans:
@@ -214,9 +299,9 @@ def run(now: datetime | None = None, *, force: set | None = None, prev: dict | N
             continue
         status = _apply(doc, plan, results[plan["gid"]], now)
         outcomes[plan["gid"]] = (status, plan["meta"].get("duration_ms"))
-        if status != "failed":
+        if status in ("fetched", "unchanged"):
             done.append(plan["gid"])
-    material = bool(due) or _market_view(doc) != _market_view(base)
+    material = bool(due) or _market_view(doc) != _market_view(base) or (doc.get("cooldowns") or {}) != (base.get("cooldowns") or {})
     if material:
         for plan in plans:
             status, _dur = outcomes[plan["gid"]]
@@ -258,10 +343,11 @@ def _report(doc: dict, plans: list[dict], outcomes: dict, now: datetime) -> dict
             "open": plan["open"],
             "source_lag_s": freshness.source_lag_s(doc.get("quotes") or {}, gid, meta.get("fetched_at")),
             "quote_time_origin": plan["meta"].get("quote_time_origin") or meta.get("quote_time_origin"),
-            "error": plan["meta"].get("error") if status == "failed" else None,
+            "error": plan["meta"].get("error") if status in ("failed", "rate_limited") else None,
             "origin_error": plan["meta"].get("origin_error") if plan["due"] else meta.get("origin_error"),
             "http_attempts": plan["meta"].get("http_attempts") if plan["due"] else meta.get("http_attempts"),
             "http_wait_s": plan["meta"].get("http_wait_s") if plan["due"] else meta.get("http_wait_s"),
+            "next_eligible_at": meta.get("next_eligible_at"),
         }
         rows.append((gid, status, dur))
     return {
@@ -302,6 +388,7 @@ def status_view(doc: dict, now: datetime | None = None) -> dict:
             "error": meta.get("error"),
             "error_at": meta.get("error_at"),
             "origin_error": meta.get("origin_error"),
+            "next_eligible_at": meta.get("next_eligible_at"),
         }
     cycle = doc.get("cycle") or {}
     return {

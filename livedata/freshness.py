@@ -81,8 +81,9 @@ def summarize_prices(doc: dict, now: datetime) -> str:
     for gid, meta in groups.items():
         fetched = parse_time(meta.get("fetched_at"))
         age = None if fetched is None else round((now - fetched).total_seconds() / 60, 1)
+        eligible = (" next_eligible_at=%s" % meta["next_eligible_at"]) if meta.get("next_eligible_at") else ""
         lines.append(
-            "%s health=%s age_min=%s fetched_at=%s status=%s open=%s source_lag_s=%s error=%s"
+            "%s health=%s age_min=%s fetched_at=%s status=%s open=%s source_lag_s=%s error=%s%s"
             % (
                 gid,
                 judge(gid, meta, now),
@@ -92,6 +93,7 @@ def summarize_prices(doc: dict, now: datetime) -> str:
                 meta.get("open"),
                 meta.get("source_lag_s"),
                 meta.get("error"),
+                eligible,
             )
         )
     return "\n".join(lines)

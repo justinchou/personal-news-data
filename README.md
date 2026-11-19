@@ -57,7 +57,7 @@ not every 30 min. The cadence is a collector process that sleeps on the runner a
 
 1. **Collector** (`run-name: collector`) — `scripts/live_loop.sh` every 5 minutes (at :02, :07, …) pulls `main`,
    runs `scripts/fetch_live.py`, and commits `data/` only when it changed. The log line's `summary` is the cycle
-   (`fetched`, `unchanged`, `failed`, `closed`, `not_due`) with that cycle's duration. Most ticks fetch nothing.
+   (`fetched`, `unchanged`, `failed`, `rate_limited`, `closed`, `not_due`) with that cycle's duration. Most ticks fetch nothing.
    An origin failure is still committed: the previous quote stays, `status=failed`, and `generated_at` does not move
    unless some other group succeeded.
 2. **Hand-over** — after ~5 h 40 min (the job limit is 6 h) the job dispatches the next run on `main` and exits.
@@ -79,7 +79,9 @@ checks out `main`.
 - **Tencent quotes** (`qt.gtimg.cn`): undocumented public endpoint with no published rate limits or terms.
   One batched request per group. Tencent groups never run at the same time. Coinbase may run beside that chain
   (at most one Coinbase sequence). Connect timeout 3 s, read timeout 10 s, then 2 s and 8 s backoff.
-  `Retry-After` is honored and capped at 15 s. Previous quotes are kept on failure. Delay is not published —
+  `Retry-After` (seconds or HTTP-date) is waited in full when it fits in a 30 s in-cycle budget.
+  A longer cooldown is stored and that source is skipped until it expires; the other source still runs.
+  Previous quotes are kept on failure. Delay is not published —
   each quote carries the source's own quote time (`quote_time`). A fresh `fetched_at` with an old `quote_time`
   is source lag, not a missed fetch. On this feed, HK names have been ~15 min behind the fetch; CN and US have not.
 - **Coinbase Exchange** public REST: 10 requests/s per IP, burst 15

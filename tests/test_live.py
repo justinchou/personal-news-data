@@ -46,21 +46,99 @@ class Parse(unittest.TestCase):
         with self.assertRaises(Exception):
             sources.get("https://example.invalid", sleep=sleeps.append, session=S())
         self.assertEqual(len(calls), 3)
-        self.assertEqual(sleeps, [7, 8])  # Retry-After 7, then backoff 8s (Retry-After does not raise it)
+        self.assertEqual(sleeps, [7, 8])  # full Retry-After 7, then the 8s backoff floor (not earlier than 7)
 
-    def test_retry_after_is_capped(self):
-        sleeps = []
+    def test_retry_after_above_15_is_waited_in_full(self):
+        self.assertGreaterEqual(sources.CYCLE_WAIT_BUDGET, 20)
+        calls, sleeps = [], []
+        now = datetime(2026, 11, 19, 1, 0, tzinfo=ZoneInfo("UTC"))
+
+        class R:
+            status_code, headers = 429, {"Retry-After": "20"}
+
+        class S:
+            def get(self, url, **kw):
+                calls.append(url)
+                return R()
+
+        with self.assertRaises(sources.RateLimited) as caught:
+            sources.get("https://example.invalid", sleep=sleeps.append, session=S(), now=now)
+        self.assertEqual(len(calls), 3)
+        self.assertEqual(sleeps, [20, 20])
+        self.assertGreaterEqual(caught.exception.wait_s, 20)
+        self.assertGreaterEqual((caught.exception.retry_at - now).total_seconds(), 20)
+
+    def test_retry_after_beyond_budget_does_not_retry_early(self):
+        calls, sleeps = [], []
+        now = datetime(2026, 11, 19, 1, 0, tzinfo=ZoneInfo("UTC"))
 
         class R:
             status_code, headers = 429, {"Retry-After": "500"}
 
         class S:
             def get(self, url, **kw):
+                calls.append(url)
                 return R()
 
-        with self.assertRaises(Exception):
-            sources.get("https://example.invalid", sleep=sleeps.append, session=S())
-        self.assertEqual(sleeps, [15, 15])
+        with self.assertRaises(sources.RateLimited) as caught:
+            sources.get("https://example.invalid", sleep=sleeps.append, session=S(), now=now)
+        self.assertEqual(calls, ["https://example.invalid"])
+        self.assertEqual(sleeps, [])
+        self.assertEqual(caught.exception.wait_s, 500)
+        self.assertEqual(caught.exception.retry_at, now + timedelta(seconds=500))
+
+    def test_retry_after_http_date_within_budget(self):
+        from datetime import timezone
+        from email.utils import format_datetime
+        calls, sleeps = [], []
+        now = datetime(2026, 11, 19, 1, 0, tzinfo=timezone.utc)
+        when = now + timedelta(seconds=20)
+
+        class R:
+            def __init__(self, code, headers):
+                self.status_code, self.headers, self.text = code, headers, ""
+
+            def raise_for_status(self):
+                return None
+
+        class S:
+            def __init__(self):
+                self.n = 0
+
+            def get(self, url, **kw):
+                self.n += 1
+                calls.append(self.n)
+                if self.n == 1:
+                    return R(429, {"Retry-After": format_datetime(when, usegmt=True)})
+                return R(200, {})
+
+        response = sources.get("https://example.invalid", sleep=sleeps.append, session=S(), now=now)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(sleeps, [20])
+        self.assertEqual(calls, [1, 2])
+
+    def test_retry_after_http_date_beyond_budget_defers_full_wait(self):
+        from datetime import timezone
+        from email.utils import format_datetime
+        calls, sleeps = [], []
+        now = datetime(2026, 11, 19, 1, 0, tzinfo=timezone.utc)
+        when = now + timedelta(seconds=120)
+
+        class R:
+            status_code = 429
+            headers = {"Retry-After": format_datetime(when, usegmt=True)}
+
+        class S:
+            def get(self, url, **kw):
+                calls.append(1)
+                return R()
+
+        with self.assertRaises(sources.RateLimited) as caught:
+            sources.get("https://example.invalid", sleep=sleeps.append, session=S(), now=now)
+        self.assertEqual(calls, [1])
+        self.assertEqual(sleeps, [])
+        self.assertEqual(int(caught.exception.wait_s), 120)
+        self.assertEqual(caught.exception.retry_at, when)
 
 
 class Run(unittest.TestCase):
@@ -269,6 +347,50 @@ class Distinctions(unittest.TestCase):
             self.assertFalse(live.write({"a": 2, "b": 1}, path))
             self.assertEqual(json.loads(path.read_text()), {"a": 2, "b": 1})
             self.assertEqual(list(Path(d).glob("*.tmp")), [])
+
+
+    def test_later_tick_respects_retry_after_cooldown(self):
+        t = datetime(2026, 11, 21, 12, 0, tzinfo=BJ)
+        retry_at = t + timedelta(minutes=10)
+        seen = []
+
+        def quotes(codes, now):
+            return {c: {"price": 1.0, "prev_close": 1.0, "change_pct": 0.0, "quote_time": now.isoformat()} for c in codes}
+
+        def fetch(source, codes, now):
+            seen.append(source)
+            if source == "tencent" and now < retry_at:
+                raise sources.RateLimited("cooldown", retry_at=retry_at, wait_s=600)
+            return quotes(codes, now)
+
+        doc, done, rep = live.run(t, prev={}, force={"us_equity", "hk_equity", "crypto"}, fetch=fetch)
+        self.assertEqual(seen.count("tencent"), 1)
+        self.assertIn("coinbase", seen)
+        self.assertIn("crypto", done)
+        self.assertNotIn("us_equity", done)
+        self.assertNotIn("hk_equity", done)
+        self.assertEqual(rep["groups"]["us_equity"]["status"], "rate_limited")
+        self.assertEqual(rep["groups"]["hk_equity"]["status"], "rate_limited")
+        self.assertEqual(rep["groups"]["us_equity"]["health"], "failed")
+        eligible = retry_at.isoformat(timespec="seconds")
+        self.assertEqual(doc["groups"]["us_equity"]["next_eligible_at"], eligible)
+        self.assertEqual(doc["cooldowns"]["tencent"], eligible)
+        self.assertNotIn("coinbase", doc.get("cooldowns") or {})
+
+        seen.clear()
+        doc2, _, rep2 = live.run(t + timedelta(minutes=5), prev=doc, force={"us_equity", "hk_equity", "crypto"}, fetch=fetch)
+        self.assertNotIn("tencent", seen)
+        self.assertIn("coinbase", seen)
+        self.assertEqual(rep2["groups"]["us_equity"]["status"], "rate_limited")
+        self.assertEqual(doc2["groups"]["us_equity"]["next_eligible_at"], eligible)
+        self.assertEqual(doc2["cooldowns"]["tencent"], eligible)
+
+        seen.clear()
+        doc3, done3, _ = live.run(t + timedelta(minutes=11), prev=doc2, force={"us_equity"}, fetch=fetch)
+        self.assertIn("tencent", seen)
+        self.assertIn("us_equity", done3)
+        self.assertNotIn("tencent", doc3.get("cooldowns") or {})
+        self.assertNotIn("next_eligible_at", doc3["groups"]["us_equity"])
 
 
 class CoinbaseTime(unittest.TestCase):

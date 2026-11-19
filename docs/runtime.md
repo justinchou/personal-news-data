@@ -159,11 +159,11 @@ columns are unchanged. `schema` stays 1. New fields are additive.
 
 Code changes:
 
-- Cycle vocabulary on each group and in the log JSON: `due` (boolean) and `status` of `fetched`, `unchanged`, `failed`, `closed`, or `not_due`. `unchanged` still advances `fetched_at` and still appends the crypto history row. `failed` and an empty payload keep the previous quote and do not move that group's `fetched_at`. `generated_at` moves only when some group was observed. `cycle.ran_at` still moves on a total failure, so a touched document time is not a fresh quote.
+- Cycle vocabulary on each group and in the log JSON: `due` (boolean) and `status` of `fetched`, `unchanged`, `failed`, `rate_limited`, `closed`, or `not_due`. `unchanged` still advances `fetched_at` and still appends the crypto history row. `failed` and an empty payload keep the previous quote and do not move that group's `fetched_at`. `rate_limited` keeps the previous quote and names `next_eligible_at`. `generated_at` moves only when some group was observed. `cycle.ran_at` still moves on a total failure, so a touched document time is not a fresh quote.
 - Coinbase `quote_time` comes from the ticker trade time. Stats still supply the 24 h open. If the ticker fails, the stats price is kept, `quote_time` is null, and `origin_error` is set. The fetch clock is never written into `quote_time`.
 - Health (`ok` / `stale` / `closed` / `failed`) is computed from that group's `fetched_at`, `error`, and `open` flag. Limits are the open interval plus 2 min (12 or 17). A closed session is not `stale`. Source lag is reported separately and does not fail the group.
 - Tencent groups stay one batch at a time. The Coinbase sequence may run beside that chain (one extra thread, so two sequences in flight). Happy-path cycles were already under 3 s; the overlap is so a Tencent timeout cannot sit in front of the 10 min crypto observation. Crypto used to be last in the config order.
-- HTTP connect 3 s, read 10 s, backoff 2 s then 8 s, `Retry-After` capped at 15 s. No 429 or retry appeared in the two parsed logs. The cap is a bound. Worst case for one call is about a minute, not the previous 20 s timeouts plus a 120 s `Retry-After`.
+- HTTP connect 3 s, read 10 s, backoff 2 s then 8 s when the server does not name a wait. `Retry-After` (delta-seconds or HTTP-date) is never shortened. A wait of at most 30 s is slept in full and then retried. A longer one does not retry inside the cycle: that source is marked `rate_limited` with `next_eligible_at`, the cooldown is stored in `prices.json` (`cooldowns`) so the next tick still honors it, and the other source continues. No 429 was in the parsed Nov 17–19 logs.
 - `prices.json` and `status.json` are replaced via a temp file. `status.json` has the cycle and the groups, not the 57 quotes. The watchdog prints the same facts from `prices.json` and does not fetch.
 - Actions `run-name` is `watchdog` or `collector`. The long job is named `collector`. A watchdog run's skipped collector is the success path. The step summary lists one line per cycle and says the job length is sleep.
 
@@ -217,8 +217,9 @@ checked out the old commit and will keep that code until the job exits.
 - GitHub can still drop the watchdog for many hours. A dead collector is down until
   the next delivered cron or a manual `mode=loop`.
 - The runner is occupied ~24 h/day. That is intentional.
-- A total origin outage can spend up to ~60 s on one call. Tencent groups are serial
-  with each other; Coinbase overlaps them but its own two products stay serial.
+- A server `Retry-After` longer than 30 s defers that source until the full cooldown,
+  including across ticks. Tencent groups share one cooldown and stay serial; Coinbase
+  is independent and keeps running. A wait of 30 s or less is slept before the next try.
 - HK (and any other Tencent print) can be minutes behind `fetched_at`. We do not
   have another redistribution-safe source in this repo.
 - Futures `calendar_valid` stays false until a holiday table is added. The feed is

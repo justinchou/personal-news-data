@@ -5,16 +5,18 @@ request and live.run never runs two Tencent batches at once. Coinbase is a
 different host: live.run may run it beside the Tencent chain, bounded to one
 Coinbase sequence in flight. Products inside Coinbase stay sequential.
 
-HTTP: connect 3s, read 10s, two retries. Backoff is 2s then 8s. Retry-After is
-honored but capped at 15s, so one call stays within about a minute even if the
-origin asks for a long pause. No retry was observed in the Nov 17–19 collector
-logs; the cap is a bound, not a response to a measured 429.
+HTTP: connect 3s, read 10s, two retries. Backoff is 2s then 8s when the
+server does not name a wait. Retry-After (delta-seconds or HTTP-date) is the
+earliest the next attempt may run. A wait that fits in CYCLE_WAIT_BUDGET is
+slept in full. A longer one is not shortened: get() raises RateLimited and the
+caller defers that source until retry_at. No 429 was in the Nov 17–19 logs.
 """
 from __future__ import annotations
 
 import threading
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 from zoneinfo import ZoneInfo
 
 import requests
@@ -22,9 +24,55 @@ import requests
 UA = {"User-Agent": "personal-news-data/1.0 (+https://github.com/justinchou/personal-news-data)"}
 BJ = ZoneInfo("Asia/Shanghai")
 TZ = {"us": ZoneInfo("America/New_York"), "hk": ZoneInfo("Asia/Hong_Kong")}
-BACKOFF = (2, 8)  # seconds before retry 1 and 2
-RETRY_AFTER_CAP = 15
+BACKOFF = (2, 8)  # seconds before retry 1 and 2 when the server names no wait
+# Longest server-directed pause one call may block inside a 5-minute cycle.
+# Anything longer is deferred for the full Retry-After instead of retried early.
+CYCLE_WAIT_BUDGET = 30
 TIMEOUT = (3.05, 10)  # connect, read
+
+
+class RateLimited(requests.HTTPError):
+    """Origin named a cooldown. retry_at is the earliest legal next request."""
+
+    def __init__(self, message: str = "rate limited", *, retry_at: datetime, wait_s: float, response=None):
+        self.retry_at = retry_at
+        self.wait_s = float(wait_s)
+        super().__init__(message, response=response)
+
+
+def retry_after_seconds(value, now: datetime) -> float | None:
+    """Seconds until the server allows another try. None if the header is absent or not a wait.
+
+    Accepts delta-seconds and an HTTP-date (RFC 9110). A parsed wait is never shortened.
+    """
+    if value is None:
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    if text.isdigit():
+        return float(text)
+    try:
+        when = parsedate_to_datetime(text)
+    except (TypeError, ValueError, IndexError, OverflowError):
+        return None
+    if when.tzinfo is None:
+        when = when.replace(tzinfo=timezone.utc)
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=timezone.utc)
+    return (when - now).total_seconds()
+
+
+def _retry_after_header(headers) -> str:
+    if not headers:
+        return ""
+    direct = headers.get("Retry-After")
+    if direct:
+        return str(direct)
+    for key, val in getattr(headers, "items", lambda: [])():
+        if str(key).lower() == "retry-after" and val:
+            return str(val)
+    return ""
 
 _tls = threading.local()
 
@@ -64,10 +112,13 @@ def snapshot_info() -> dict:
     return current_info().as_dict()
 
 
-def get(url: str, *, sleep=time.sleep, session=requests, timeout=TIMEOUT) -> requests.Response:
+def get(url: str, *, sleep=time.sleep, session=requests, timeout=TIMEOUT, now: datetime | None = None, budget: float = CYCLE_WAIT_BUDGET) -> requests.Response:
+    """GET with backoff. A Retry-After above `budget` raises RateLimited and does not sleep or retry."""
+    now = now or datetime.now(timezone.utc)
     info = current_info()
     info.requests += 1
     last = None
+    last_wait = None
     for i in range(len(BACKOFF) + 1):
         info.attempts += 1
         try:
@@ -78,15 +129,30 @@ def get(url: str, *, sleep=time.sleep, session=requests, timeout=TIMEOUT) -> req
             return r
         except requests.RequestException as e:
             last = e
+            headers = getattr(getattr(e, "response", None), "headers", {}) or {}
+            last_wait = retry_after_seconds(_retry_after_header(headers), now)
+            if last_wait is not None and last_wait > budget:
+                raise RateLimited(
+                    f"rate limited for {last_wait:.0f}s",
+                    retry_at=now + timedelta(seconds=last_wait),
+                    wait_s=last_wait,
+                    response=getattr(e, "response", None),
+                ) from e
             if i == len(BACKOFF):
                 break
             wait = BACKOFF[i]
-            ra = getattr(getattr(e, "response", None), "headers", {}) or {}
-            retry_after = str(ra.get("Retry-After", ""))
-            if retry_after.isdigit():
-                wait = max(wait, min(int(retry_after), RETRY_AFTER_CAP))
+            if last_wait is not None and last_wait > 0:
+                wait = max(wait, last_wait)
+            now = now + timedelta(seconds=wait)
             info.wait_s += wait
             sleep(wait)
+    if last is not None and last_wait is not None and last_wait > 0:
+        raise RateLimited(
+            f"rate limited for {last_wait:.0f}s",
+            retry_at=now + timedelta(seconds=last_wait),
+            wait_s=last_wait,
+            response=getattr(last, "response", None),
+        ) from last
     raise last
 
 
@@ -188,6 +254,8 @@ def coinbase(products: list[str], *, now: datetime, **kw) -> dict:
         ticker = None
         try:
             ticker = get(f"https://api.exchange.coinbase.com/products/{p}/ticker", **kw).json()
+        except RateLimited:
+            raise
         except requests.RequestException as e:
             errors.append(f"{p} ticker {type(e).__name__}")
         ticker_price = _num((ticker or {}).get("price"))
