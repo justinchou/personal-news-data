@@ -1,10 +1,10 @@
 {
  "cycle": {
-  "ran_at": "2026-11-19T18:47:00+08:00",
+  "ran_at": "2026-11-19T18:52:00+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=fetched/1401ms crypto=not_due"
+  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=not_due crypto=fetched/197ms"
  },
- "generated_at": "2026-11-19T18:47:00+08:00",
+ "generated_at": "2026-11-19T18:52:00+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -26,8 +26,8 @@
   },
   "crypto": {
    "calendar_valid": true,
-   "duration_ms": 167,
-   "fetched_at": "2026-11-19T18:42:00+08:00",
+   "duration_ms": 197,
+   "fetched_at": "2026-11-19T18:52:00+08:00",
    "health": "ok",
    "http_attempts": 4,
    "http_wait_s": 0.0,
@@ -40,7 +40,7 @@
    "quote_time_origin": "exchange",
    "source": "coinbase",
    "source_lag_s": 1,
-   "status": "not_due"
+   "status": "fetched"
   },
   "futures_fx": {
    "calendar_valid": false,
@@ -58,7 +58,7 @@
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 60,
-   "status": "fetched"
+   "status": "not_due"
   },
   "hk_equity": {
    "calendar_valid": true,
@@ -372,13 +372,13 @@
   },
   "btc": {
    "change_basis": "24h",
-   "change_pct": -0.794,
-   "fetched_at": "2026-11-19T18:42:00+08:00",
+   "change_pct": -0.609,
+   "fetched_at": "2026-11-19T18:52:00+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 64291.27,
-   "price": 63780.71,
-   "quote_time": "2026-11-19T18:42:00+08:00",
+   "price": 63899.63,
+   "quote_time": "2026-11-19T18:52:00+08:00",
    "source": "coinbase",
    "sym": "Bitcoin"
   },
@@ -417,13 +417,13 @@
   },
   "eth": {
    "change_basis": "24h",
-   "change_pct": -0.025,
-   "fetched_at": "2026-11-19T18:42:00+08:00",
+   "change_pct": 0.13,
+   "fetched_at": "2026-11-19T18:52:00+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 1804.68,
-   "price": 1804.23,
-   "quote_time": "2026-11-19T18:41:59+08:00",
+   "price": 1807.03,
+   "quote_time": "2026-11-19T18:51:59+08:00",
    "source": "coinbase",
    "sym": "Ethereum"
   },
