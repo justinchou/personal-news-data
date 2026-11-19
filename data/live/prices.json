@@ -1,10 +1,10 @@
 {
  "cycle": {
-  "ran_at": "2026-11-19T12:32:00+08:00",
+  "ran_at": "2026-11-19T12:42:00+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=unchanged/1419ms cn_equity=closed futures_fx=fetched/826ms crypto=fetched/123ms"
+  "summary": "us_equity=closed hk_equity=unchanged/1595ms cn_equity=closed futures_fx=not_due crypto=fetched/124ms"
  },
- "generated_at": "2026-11-19T12:32:00+08:00",
+ "generated_at": "2026-11-19T12:42:00+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -22,8 +22,8 @@
   },
   "crypto": {
    "calendar_valid": true,
-   "duration_ms": 123,
-   "fetched_at": "2026-11-19T12:32:00+08:00",
+   "duration_ms": 124,
+   "fetched_at": "2026-11-19T12:42:00+08:00",
    "health": "ok",
    "http_attempts": 4,
    "http_wait_s": 0.0,
@@ -35,7 +35,7 @@
    "open": true,
    "quote_time_origin": "exchange",
    "source": "coinbase",
-   "source_lag_s": 1,
+   "source_lag_s": 3,
    "status": "fetched"
   },
   "futures_fx": {
@@ -54,12 +54,12 @@
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 67,
-   "status": "fetched"
+   "status": "not_due"
   },
   "hk_equity": {
    "calendar_valid": true,
-   "duration_ms": 1419,
-   "fetched_at": "2026-11-19T12:32:00+08:00",
+   "duration_ms": 1595,
+   "fetched_at": "2026-11-19T12:42:00+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -71,7 +71,7 @@
    "open": true,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 1921,
+   "source_lag_s": 2521,
    "status": "unchanged"
   },
   "us_equity": {
@@ -115,7 +115,7 @@
   },
   "0700-hk": {
    "change_pct": -6.813,
-   "fetched_at": "2026-11-19T12:32:00+08:00",
+   "fetched_at": "2026-11-19T12:42:00+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 372.8,
@@ -126,7 +126,7 @@
   },
   "0981-hk": {
    "change_pct": 6.606,
-   "fetched_at": "2026-11-19T12:32:00+08:00",
+   "fetched_at": "2026-11-19T12:42:00+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 49.2,
@@ -137,7 +137,7 @@
   },
   "1024-hk": {
    "change_pct": -5.74,
-   "fetched_at": "2026-11-19T12:32:00+08:00",
+   "fetched_at": "2026-11-19T12:42:00+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 24.04,
@@ -148,7 +148,7 @@
   },
   "1347-hk": {
    "change_pct": 14.083,
-   "fetched_at": "2026-11-19T12:32:00+08:00",
+   "fetched_at": "2026-11-19T12:42:00+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 77.4,
@@ -159,7 +159,7 @@
   },
   "1810-hk": {
    "change_pct": -3.237,
-   "fetched_at": "2026-11-19T12:32:00+08:00",
+   "fetched_at": "2026-11-19T12:42:00+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 29.66,
@@ -247,7 +247,7 @@
   },
   "9888-hk": {
    "change_pct": -5.698,
-   "fetched_at": "2026-11-19T12:32:00+08:00",
+   "fetched_at": "2026-11-19T12:42:00+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 70.2,
@@ -258,7 +258,7 @@
   },
   "9988-hk": {
    "change_pct": -5.806,
-   "fetched_at": "2026-11-19T12:32:00+08:00",
+   "fetched_at": "2026-11-19T12:42:00+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 85.25,
@@ -368,13 +368,13 @@
   },
   "btc": {
    "change_basis": "24h",
-   "change_pct": -1.558,
-   "fetched_at": "2026-11-19T12:32:00+08:00",
+   "change_pct": -1.477,
+   "fetched_at": "2026-11-19T12:42:00+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 64353.13,
-   "price": 63350.7,
-   "quote_time": "2026-11-19T12:31:59+08:00",
+   "price": 63402.58,
+   "quote_time": "2026-11-19T12:41:59+08:00",
    "source": "coinbase",
    "sym": "Bitcoin"
   },
@@ -413,13 +413,13 @@
   },
   "eth": {
    "change_basis": "24h",
-   "change_pct": -0.313,
-   "fetched_at": "2026-11-19T12:32:00+08:00",
+   "change_pct": -0.29,
+   "fetched_at": "2026-11-19T12:42:00+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 1802.0,
-   "price": 1796.36,
-   "quote_time": "2026-11-19T12:31:59+08:00",
+   "price": 1796.77,
+   "quote_time": "2026-11-19T12:41:57+08:00",
    "source": "coinbase",
    "sym": "Ethereum"
   },
