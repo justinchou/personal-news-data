@@ -39,6 +39,7 @@ Actions → live-prices → Run workflow；`force` 留空 = 按日历正常判�
 
 ## 调度方式（只在 GitHub 上运行）
 
-- 一个 Actions 任务内循环约 5 小时 40 分钟，每 5 分钟（:02、:07 …）按日历抓一次，数据有变化才提交；结束前自动触发下一轮（GitHub 单个任务最长 6 小时）。
-- 定时任务 `11,41 * * * *` 只当看门狗：已有循环在跑就几秒内退出；循环挂了、被取消或没接上时，由它重新拉起。
-- 同一时间最多一个循环在跑（并发组 `live-prices-loop`）。要彻底停止：Actions → live-prices → Disable workflow。
+- 一个 Actions 任务内循环约 5 小时 40 分钟，每 5 分钟（:02、:07 …）按日历抓一次，数据有变化才提交；结束前自动触发下一轮（GitHub 单个任务最长 6 小时）。任务时长是睡眠，不是单次请求。
+- 运行列表里 `watchdog` 是看门狗：已有 `collector` 在跑或在排队时，几秒内退出，collector 任务显示为 skipped，这是正常的。循环挂了、被取消或没接上时，由它重新拉起。GitHub 的定时触发不稳定，不能改成纯 cron 来当可靠频率。
+- 同一时间最多一个循环在写（并发组 `live-prices-loop`，不要改名，否则新旧循环会重叠）。最近一次成功抓取看 `data/live/status.json` 和各组 `fetched_at`，不要只看 `generated_at`。说明与实测见 `docs/runtime.md`。
+- 要彻底停止：Actions → live-prices → Disable workflow。不要为了换代码去取消正在跑的 collector；下一轮交接会拉取 `main`。

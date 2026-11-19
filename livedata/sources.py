@@ -1,14 +1,22 @@
-"""Quote fetchers. One sequential request per group, retries with backoff, never parallel.
+"""Quote fetchers.
 
-- Tencent quotes (qt.gtimg.cn): undocumented public endpoint, no published limits/terms → one batched request per
-  market per scheduled slot (>= 10 min apart), back off on errors / HTTP 429.
-- Coinbase Exchange public REST (api.exchange.coinbase.com): documented 10 req/s per IP, burst 15
-  (https://docs.cdp.coinbase.com/exchange/rest-api/rate-limits). We make 2 requests per fallback run.
+Tencent (qt.gtimg.cn) has no published rate limit, so each market is one batched
+request and live.run never runs two Tencent batches at once. Coinbase is a
+different host: live.run may run it beside the Tencent chain, bounded to one
+Coinbase sequence in flight. Products inside Coinbase stay sequential.
+
+HTTP: connect 3s, read 10s, two retries. Backoff is 2s then 8s when the
+server does not name a wait. Retry-After (delta-seconds or HTTP-date) is the
+earliest the next attempt may run. A wait that fits in CYCLE_WAIT_BUDGET is
+slept in full. A longer one is not shortened: get() raises RateLimited and the
+caller defers that source until retry_at. No 429 was in the Nov 17–19 logs.
 """
 from __future__ import annotations
 
+import threading
 import time
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 from zoneinfo import ZoneInfo
 
 import requests
@@ -16,27 +24,135 @@ import requests
 UA = {"User-Agent": "personal-news-data/1.0 (+https://github.com/justinchou/personal-news-data)"}
 BJ = ZoneInfo("Asia/Shanghai")
 TZ = {"us": ZoneInfo("America/New_York"), "hk": ZoneInfo("Asia/Hong_Kong")}
-BACKOFF = (5, 20)  # seconds before retry 1 and 2
+BACKOFF = (2, 8)  # seconds before retry 1 and 2 when the server names no wait
+# Longest server-directed pause one call may block inside a 5-minute cycle.
+# Anything longer is deferred for the full Retry-After instead of retried early.
+CYCLE_WAIT_BUDGET = 30
+TIMEOUT = (3.05, 10)  # connect, read
 
 
-def get(url: str, *, sleep=time.sleep, session=requests) -> requests.Response:
+class RateLimited(requests.HTTPError):
+    """Origin named a cooldown. retry_at is the earliest legal next request."""
+
+    def __init__(self, message: str = "rate limited", *, retry_at: datetime, wait_s: float, response=None):
+        self.retry_at = retry_at
+        self.wait_s = float(wait_s)
+        super().__init__(message, response=response)
+
+
+def retry_after_seconds(value, now: datetime) -> float | None:
+    """Seconds until the server allows another try. None if the header is absent or not a wait.
+
+    Accepts delta-seconds and an HTTP-date (RFC 9110). A parsed wait is never shortened.
+    """
+    if value is None:
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    if text.isdigit():
+        return float(text)
+    try:
+        when = parsedate_to_datetime(text)
+    except (TypeError, ValueError, IndexError, OverflowError):
+        return None
+    if when.tzinfo is None:
+        when = when.replace(tzinfo=timezone.utc)
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=timezone.utc)
+    return (when - now).total_seconds()
+
+
+def _retry_after_header(headers) -> str:
+    if not headers:
+        return ""
+    direct = headers.get("Retry-After")
+    if direct:
+        return str(direct)
+    for key, val in getattr(headers, "items", lambda: [])():
+        if str(key).lower() == "retry-after" and val:
+            return str(val)
+    return ""
+
+_tls = threading.local()
+
+
+class _Info:
+    def __init__(self):
+        self.attempts = 0
+        self.wait_s = 0.0
+        self.requests = 0
+        self.quote_time_origin = None
+        self.origin_error = None
+
+    def as_dict(self) -> dict:
+        return {
+            "attempts": self.attempts,
+            "wait_s": round(self.wait_s, 3),
+            "requests": self.requests,
+            "quote_time_origin": self.quote_time_origin,
+            "origin_error": self.origin_error,
+        }
+
+
+def begin_info() -> None:
+    """Start a per-thread tally. Call on the thread that will perform the fetch."""
+    _tls.info = _Info()
+
+
+def current_info() -> _Info:
+    info = getattr(_tls, "info", None)
+    if info is None:
+        info = _Info()
+        _tls.info = info
+    return info
+
+
+def snapshot_info() -> dict:
+    return current_info().as_dict()
+
+
+def get(url: str, *, sleep=time.sleep, session=requests, timeout=TIMEOUT, now: datetime | None = None, budget: float = CYCLE_WAIT_BUDGET) -> requests.Response:
+    """GET with backoff. A Retry-After above `budget` raises RateLimited and does not sleep or retry."""
+    now = now or datetime.now(timezone.utc)
+    info = current_info()
+    info.requests += 1
     last = None
+    last_wait = None
     for i in range(len(BACKOFF) + 1):
+        info.attempts += 1
         try:
-            r = session.get(url, headers=UA, timeout=20)
+            r = session.get(url, headers=UA, timeout=timeout)
             if r.status_code == 429 or r.status_code >= 500:
                 raise requests.HTTPError(f"HTTP {r.status_code}", response=r)
             r.raise_for_status()
             return r
         except requests.RequestException as e:
             last = e
+            headers = getattr(getattr(e, "response", None), "headers", {}) or {}
+            last_wait = retry_after_seconds(_retry_after_header(headers), now)
+            if last_wait is not None and last_wait > budget:
+                raise RateLimited(
+                    f"rate limited for {last_wait:.0f}s",
+                    retry_at=now + timedelta(seconds=last_wait),
+                    wait_s=last_wait,
+                    response=getattr(e, "response", None),
+                ) from e
             if i == len(BACKOFF):
                 break
             wait = BACKOFF[i]
-            ra = getattr(getattr(e, "response", None), "headers", {}) or {}
-            if ra.get("Retry-After", "").isdigit():
-                wait = max(wait, min(int(ra["Retry-After"]), 120))
+            if last_wait is not None and last_wait > 0:
+                wait = max(wait, last_wait)
+            now = now + timedelta(seconds=wait)
+            info.wait_s += wait
             sleep(wait)
+    if last is not None and last_wait is not None and last_wait > 0:
+        raise RateLimited(
+            f"rate limited for {last_wait:.0f}s",
+            retry_at=now + timedelta(seconds=last_wait),
+            wait_s=last_wait,
+            response=getattr(last, "response", None),
+        ) from last
     raise last
 
 
@@ -50,6 +166,27 @@ def _num(x):
 
 def _iso_bj(dt: datetime | None):
     return dt.astimezone(BJ).isoformat(timespec="seconds") if dt else None
+
+
+def parse_exchange_time(value: str | None) -> datetime | None:
+    """Coinbase ticker times look like 2026-11-19T01:42:20.875145373Z (nanoseconds)."""
+    if not value or not isinstance(value, str):
+        return None
+    text = value.strip().replace("Z", "+00:00")
+    if "." in text:
+        head, frac = text.split(".", 1)
+        i = 0
+        while i < len(frac) and frac[i].isdigit():
+            i += 1
+        digits, tail = frac[:i], frac[i:]
+        text = head + "." + (digits[:6].ljust(6, "0") if digits else "000000") + tail
+    try:
+        dt = datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt
 
 
 def parse_tencent(text: str) -> dict:
@@ -94,17 +231,55 @@ def parse_tencent(text: str) -> dict:
 
 
 def tencent(codes: list[str], **kw) -> dict:
+    current_info().quote_time_origin = "source"
     r = get("https://qt.gtimg.cn/q=" + ",".join(codes), **kw)
     r.encoding = "gbk"
     return parse_tencent(r.text)
 
 
 def coinbase(products: list[str], *, now: datetime, **kw) -> dict:
+    """BTC/ETH last trade from the ticker (price + exchange time) and the 24h open from stats.
+
+    `now` is the observation clock used by the caller for fetched_at. It is never
+    copied into quote_time: a missing ticker time stays null so an old price cannot
+    look freshly timestamped.
+    """
+    del now
     out = {}
-    for p in products:  # sequential; 24h stats gives last + open
-        d = get(f"https://api.exchange.coinbase.com/products/{p}/stats", **kw).json()
-        last, op = _num(d.get("last")), _num(d.get("open"))
-        if last:
-            out[p] = {"price": last, "prev_close": op, "change_pct": None if not op else round((last / op - 1) * 100, 3),
-                      "quote_time": _iso_bj(now), "change_basis": "24h"}
+    info = current_info()
+    errors = []
+    timed = 0
+    for p in products:  # sequential; 10 req/s documented, we do 4 requests per 10 min
+        stats = get(f"https://api.exchange.coinbase.com/products/{p}/stats", **kw).json()
+        ticker = None
+        try:
+            ticker = get(f"https://api.exchange.coinbase.com/products/{p}/ticker", **kw).json()
+        except RateLimited:
+            raise
+        except requests.RequestException as e:
+            errors.append(f"{p} ticker {type(e).__name__}")
+        ticker_price = _num((ticker or {}).get("price"))
+        trade_time = parse_exchange_time((ticker or {}).get("time")) if ticker_price is not None else None
+        if ticker_price is None:
+            price = _num(stats.get("last"))
+            trade_time = None
+            if not any(err.startswith(p + " ") for err in errors):
+                errors.append(f"{p} ticker missing price")
+        else:
+            price = ticker_price
+            if trade_time is None:
+                errors.append(f"{p} ticker missing time")
+        if trade_time is not None:
+            timed += 1
+        op = _num(stats.get("open"))
+        if price:
+            out[p] = {
+                "price": price,
+                "prev_close": op,
+                "change_pct": None if not op else round((price / op - 1) * 100, 3),
+                "quote_time": _iso_bj(trade_time) if trade_time else None,
+                "change_basis": "24h",
+            }
+    info.quote_time_origin = "exchange" if out and timed == len(out) else "unavailable"
+    info.origin_error = "; ".join(errors)[:160] if errors else None
     return out
