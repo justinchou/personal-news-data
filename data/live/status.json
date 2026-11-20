@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-11-20T14:02:01+08:00",
+ "generated_at": "2026-11-20T14:12:00+08:00",
  "groups": {
   "cn_equity": {
-   "duration_ms": 713,
+   "duration_ms": 717,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-20T14:02:01+08:00",
+   "fetched_at": "2026-11-20T14:12:00+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -16,14 +16,14 @@
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 2,
+   "source_lag_s": 3,
    "status": "fetched"
   },
   "crypto": {
-   "duration_ms": 272,
+   "duration_ms": 285,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-20T14:02:01+08:00",
+   "fetched_at": "2026-11-20T14:12:00+08:00",
    "health": "ok",
    "http_attempts": 4,
    "http_wait_s": 0.0,
@@ -34,7 +34,7 @@
    "origin_error": null,
    "quote_time_origin": "exchange",
    "source": "coinbase",
-   "source_lag_s": 10,
+   "source_lag_s": 1,
    "status": "fetched"
   },
   "futures_fx": {
@@ -53,13 +53,13 @@
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 57,
-   "status": "fetched"
+   "status": "not_due"
   },
   "hk_equity": {
-   "duration_ms": 999,
+   "duration_ms": 962,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-20T14:02:01+08:00",
+   "fetched_at": "2026-11-20T14:12:00+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -70,7 +70,7 @@
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 908,
+   "source_lag_s": 910,
    "status": "fetched"
   },
   "us_equity": {
@@ -93,7 +93,7 @@
   }
  },
  "note": "generated_at is the last cycle that observed any group. health and fetched_at are per group. An unchanged price with a new fetched_at is a successful observation. closed is not a failure.",
- "ran_at": "2026-11-20T14:02:01+08:00",
+ "ran_at": "2026-11-20T14:12:00+08:00",
  "role": "collector",
- "summary": "us_equity=closed hk_equity=fetched/999ms cn_equity=fetched/713ms futures_fx=fetched/718ms crypto=fetched/272ms"
+ "summary": "us_equity=closed hk_equity=fetched/962ms cn_equity=fetched/717ms futures_fx=not_due crypto=fetched/285ms"
 }
