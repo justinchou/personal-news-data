@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-20T15:22:00+08:00",
+ "generated_at": "2026-11-20T15:32:01+08:00",
  "groups": {
   "cn_equity": {
    "duration_ms": 1278,
@@ -20,10 +20,10 @@
    "status": "closed"
   },
   "crypto": {
-   "duration_ms": 223,
+   "duration_ms": 308,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-20T15:22:00+08:00",
+   "fetched_at": "2026-11-20T15:32:01+08:00",
    "health": "ok",
    "http_attempts": 4,
    "http_wait_s": 0.0,
@@ -34,14 +34,14 @@
    "origin_error": null,
    "quote_time_origin": "exchange",
    "source": "coinbase",
-   "source_lag_s": 2,
+   "source_lag_s": 1,
    "status": "fetched"
   },
   "futures_fx": {
-   "duration_ms": 712,
+   "duration_ms": 709,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-20T15:17:00+08:00",
+   "fetched_at": "2026-11-20T15:32:01+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -53,13 +53,13 @@
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 55,
-   "status": "not_due"
+   "status": "fetched"
   },
   "hk_equity": {
-   "duration_ms": 981,
+   "duration_ms": 3295,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-20T15:22:00+08:00",
+   "fetched_at": "2026-11-20T15:32:01+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -70,7 +70,7 @@
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 918,
+   "source_lag_s": 931,
    "status": "fetched"
   },
   "us_equity": {
@@ -93,7 +93,7 @@
   }
  },
  "note": "generated_at is the last cycle that observed any group. health and fetched_at are per group. An unchanged price with a new fetched_at is a successful observation. closed is not a failure.",
- "ran_at": "2026-11-20T15:22:00+08:00",
+ "ran_at": "2026-11-20T15:32:01+08:00",
  "role": "collector",
- "summary": "us_equity=closed hk_equity=fetched/981ms cn_equity=closed futures_fx=not_due crypto=fetched/223ms"
+ "summary": "us_equity=closed hk_equity=fetched/3295ms cn_equity=closed futures_fx=fetched/709ms crypto=fetched/308ms"
 }
