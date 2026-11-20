@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-11-20T11:17:00+08:00",
+ "generated_at": "2026-11-20T11:22:01+08:00",
  "groups": {
   "cn_equity": {
-   "duration_ms": 660,
+   "duration_ms": 667,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-20T11:12:00+08:00",
+   "fetched_at": "2026-11-20T11:22:01+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -16,14 +16,14 @@
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 4,
-   "status": "not_due"
+   "source_lag_s": 2,
+   "status": "fetched"
   },
   "crypto": {
-   "duration_ms": 255,
+   "duration_ms": 243,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-20T11:12:00+08:00",
+   "fetched_at": "2026-11-20T11:22:01+08:00",
    "health": "ok",
    "http_attempts": 4,
    "http_wait_s": 0.0,
@@ -34,8 +34,8 @@
    "origin_error": null,
    "quote_time_origin": "exchange",
    "source": "coinbase",
-   "source_lag_s": 1,
-   "status": "not_due"
+   "source_lag_s": 2,
+   "status": "fetched"
   },
   "futures_fx": {
    "duration_ms": 718,
@@ -53,13 +53,13 @@
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 54,
-   "status": "fetched"
+   "status": "not_due"
   },
   "hk_equity": {
-   "duration_ms": 1013,
+   "duration_ms": 1135,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-20T11:12:00+08:00",
+   "fetched_at": "2026-11-20T11:22:01+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -71,7 +71,7 @@
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 906,
-   "status": "not_due"
+   "status": "fetched"
   },
   "us_equity": {
    "duration_ms": 1629,
@@ -93,7 +93,7 @@
   }
  },
  "note": "generated_at is the last cycle that observed any group. health and fetched_at are per group. An unchanged price with a new fetched_at is a successful observation. closed is not a failure.",
- "ran_at": "2026-11-20T11:17:00+08:00",
+ "ran_at": "2026-11-20T11:22:01+08:00",
  "role": "collector",
- "summary": "us_equity=closed hk_equity=not_due cn_equity=not_due futures_fx=fetched/718ms crypto=not_due"
+ "summary": "us_equity=closed hk_equity=fetched/1135ms cn_equity=fetched/667ms futures_fx=not_due crypto=fetched/243ms"
 }
