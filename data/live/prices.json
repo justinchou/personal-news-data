@@ -1,10 +1,10 @@
 {
  "cycle": {
-  "ran_at": "2026-11-20T18:02:01+08:00",
+  "ran_at": "2026-11-20T18:12:00+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=fetched/1536ms crypto=fetched/162ms"
+  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=not_due crypto=fetched/162ms"
  },
- "generated_at": "2026-11-20T18:02:01+08:00",
+ "generated_at": "2026-11-20T18:12:00+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -27,7 +27,7 @@
   "crypto": {
    "calendar_valid": true,
    "duration_ms": 162,
-   "fetched_at": "2026-11-20T18:02:01+08:00",
+   "fetched_at": "2026-11-20T18:12:00+08:00",
    "health": "ok",
    "http_attempts": 4,
    "http_wait_s": 0.0,
@@ -39,7 +39,7 @@
    "open": true,
    "quote_time_origin": "exchange",
    "source": "coinbase",
-   "source_lag_s": 2,
+   "source_lag_s": 1,
    "status": "fetched"
   },
   "futures_fx": {
@@ -58,7 +58,7 @@
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 63,
-   "status": "fetched"
+   "status": "not_due"
   },
   "hk_equity": {
    "calendar_valid": true,
@@ -376,13 +376,13 @@
   },
   "btc": {
    "change_basis": "24h",
-   "change_pct": -3.249,
-   "fetched_at": "2026-11-20T18:02:01+08:00",
+   "change_pct": -3.148,
+   "fetched_at": "2026-11-20T18:12:00+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 63720.0,
-   "price": 61649.79,
-   "quote_time": "2026-11-20T18:01:59+08:00",
+   "price": 61713.99,
+   "quote_time": "2026-11-20T18:11:59+08:00",
    "source": "coinbase",
    "sym": "Bitcoin"
   },
@@ -421,13 +421,13 @@
   },
   "eth": {
    "change_basis": "24h",
-   "change_pct": -3.051,
-   "fetched_at": "2026-11-20T18:02:01+08:00",
+   "change_pct": -2.891,
+   "fetched_at": "2026-11-20T18:12:00+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 1801.53,
-   "price": 1746.57,
-   "quote_time": "2026-11-20T18:02:00+08:00",
+   "price": 1749.45,
+   "quote_time": "2026-11-20T18:12:00+08:00",
    "source": "coinbase",
    "sym": "Ethereum"
   },
