@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-23T03:57:00+08:00",
+ "generated_at": "2026-11-23T04:07:00+08:00",
  "groups": {
   "cn_equity": {
    "duration_ms": 1278,
@@ -20,10 +20,10 @@
    "status": "closed"
   },
   "crypto": {
-   "duration_ms": 150,
+   "duration_ms": 137,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-23T03:57:00+08:00",
+   "fetched_at": "2026-11-23T04:07:00+08:00",
    "health": "ok",
    "http_attempts": 4,
    "http_wait_s": 0.0,
@@ -93,7 +93,7 @@
   }
  },
  "note": "generated_at is the last cycle that observed any group. health and fetched_at are per group. An unchanged price with a new fetched_at is a successful observation. closed is not a failure.",
- "ran_at": "2026-11-23T03:57:00+08:00",
+ "ran_at": "2026-11-23T04:07:00+08:00",
  "role": "collector",
- "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=closed crypto=fetched/150ms"
+ "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=closed crypto=fetched/137ms"
 }
