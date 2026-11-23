@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-11-23T10:57:01+08:00",
+ "generated_at": "2026-11-23T11:02:00+08:00",
  "groups": {
   "cn_equity": {
-   "duration_ms": 716,
+   "duration_ms": 715,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-23T10:52:00+08:00",
+   "fetched_at": "2026-11-23T11:02:00+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -16,8 +16,8 @@
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 2,
-   "status": "not_due"
+   "source_lag_s": 3,
+   "status": "fetched"
   },
   "crypto": {
    "duration_ms": 362,
@@ -35,13 +35,13 @@
    "quote_time_origin": "exchange",
    "source": "coinbase",
    "source_lag_s": 1,
-   "status": "fetched"
+   "status": "not_due"
   },
   "futures_fx": {
-   "duration_ms": 1114,
+   "duration_ms": 713,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-23T10:47:00+08:00",
+   "fetched_at": "2026-11-23T11:02:00+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -52,14 +52,14 @@
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 59,
-   "status": "not_due"
+   "source_lag_s": 57,
+   "status": "fetched"
   },
   "hk_equity": {
-   "duration_ms": 1205,
+   "duration_ms": 953,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-23T10:52:00+08:00",
+   "fetched_at": "2026-11-23T11:02:00+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -70,8 +70,8 @@
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 902,
-   "status": "not_due"
+   "source_lag_s": 908,
+   "status": "fetched"
   },
   "us_equity": {
    "duration_ms": 780,
@@ -93,7 +93,7 @@
   }
  },
  "note": "generated_at is the last cycle that observed any group. health and fetched_at are per group. An unchanged price with a new fetched_at is a successful observation. closed is not a failure.",
- "ran_at": "2026-11-23T10:57:01+08:00",
+ "ran_at": "2026-11-23T11:02:00+08:00",
  "role": "collector",
- "summary": "us_equity=closed hk_equity=not_due cn_equity=not_due futures_fx=not_due crypto=fetched/362ms"
+ "summary": "us_equity=closed hk_equity=fetched/953ms cn_equity=fetched/715ms futures_fx=fetched/713ms crypto=not_due"
 }
