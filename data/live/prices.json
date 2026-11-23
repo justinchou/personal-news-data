@@ -1,10 +1,10 @@
 {
  "cycle": {
-  "ran_at": "2026-11-23T13:52:01+08:00",
+  "ran_at": "2026-11-23T13:57:00+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=fetched/1254ms cn_equity=fetched/712ms futures_fx=not_due crypto=not_due"
+  "summary": "us_equity=closed hk_equity=not_due cn_equity=not_due futures_fx=not_due crypto=fetched/285ms"
  },
- "generated_at": "2026-11-23T13:52:01+08:00",
+ "generated_at": "2026-11-23T13:57:00+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -22,12 +22,12 @@
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 3,
-   "status": "fetched"
+   "status": "not_due"
   },
   "crypto": {
    "calendar_valid": true,
-   "duration_ms": 263,
-   "fetched_at": "2026-11-23T13:47:01+08:00",
+   "duration_ms": 285,
+   "fetched_at": "2026-11-23T13:57:00+08:00",
    "health": "ok",
    "http_attempts": 4,
    "http_wait_s": 0.0,
@@ -40,7 +40,7 @@
    "quote_time_origin": "exchange",
    "source": "coinbase",
    "source_lag_s": 1,
-   "status": "not_due"
+   "status": "fetched"
   },
   "futures_fx": {
    "calendar_valid": false,
@@ -76,7 +76,7 @@
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 909,
-   "status": "fetched"
+   "status": "not_due"
   },
   "us_equity": {
    "calendar_valid": true,
@@ -376,13 +376,13 @@
   },
   "btc": {
    "change_basis": "24h",
-   "change_pct": 4.929,
-   "fetched_at": "2026-11-23T13:47:01+08:00",
+   "change_pct": 4.8,
+   "fetched_at": "2026-11-23T13:57:00+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 58787.78,
-   "price": 61685.26,
-   "quote_time": "2026-11-23T13:47:00+08:00",
+   "price": 61609.87,
+   "quote_time": "2026-11-23T13:56:59+08:00",
    "source": "coinbase",
    "sym": "Bitcoin"
   },
@@ -421,13 +421,13 @@
   },
   "eth": {
    "change_basis": "24h",
-   "change_pct": 4.84,
-   "fetched_at": "2026-11-23T13:47:01+08:00",
+   "change_pct": 4.652,
+   "fetched_at": "2026-11-23T13:57:00+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 1653.75,
-   "price": 1733.79,
-   "quote_time": "2026-11-23T13:47:00+08:00",
+   "price": 1730.68,
+   "quote_time": "2026-11-23T13:57:00+08:00",
    "source": "coinbase",
    "sym": "Ethereum"
   },
