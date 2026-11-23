@@ -1,15 +1,15 @@
 {
  "cycle": {
-  "ran_at": "2026-11-23T13:07:00+08:00",
+  "ran_at": "2026-11-23T13:12:01+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=not_due cn_equity=not_due futures_fx=not_due crypto=fetched/242ms"
+  "summary": "us_equity=closed hk_equity=unchanged/1507ms cn_equity=fetched/717ms futures_fx=not_due crypto=not_due"
  },
- "generated_at": "2026-11-23T13:07:00+08:00",
+ "generated_at": "2026-11-23T13:12:01+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
-   "duration_ms": 713,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "duration_ms": 717,
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -21,8 +21,8 @@
    "open": true,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 0,
-   "status": "not_due"
+   "source_lag_s": 1,
+   "status": "fetched"
   },
   "crypto": {
    "calendar_valid": true,
@@ -40,7 +40,7 @@
    "quote_time_origin": "exchange",
    "source": "coinbase",
    "source_lag_s": 0,
-   "status": "fetched"
+   "status": "not_due"
   },
   "futures_fx": {
    "calendar_valid": false,
@@ -62,8 +62,8 @@
   },
   "hk_equity": {
    "calendar_valid": true,
-   "duration_ms": 2155,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "duration_ms": 1507,
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -75,8 +75,8 @@
    "open": true,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 3721,
-   "status": "not_due"
+   "source_lag_s": 4322,
+   "status": "unchanged"
   },
   "us_equity": {
    "calendar_valid": true,
@@ -100,30 +100,30 @@
  "note": "Public quotes for personal-news-site; not investment advice. Times are Asia/Shanghai (+08:00).",
  "quotes": {
   "000977": {
-   "change_pct": -0.116,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "change_pct": -0.647,
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 43.25,
-   "price": 43.2,
-   "quote_time": "2026-11-23T13:02:00+08:00",
+   "price": 42.97,
+   "quote_time": "2026-11-23T13:12:00+08:00",
    "source": "tencent",
    "sym": "000977"
   },
   "002371": {
-   "change_pct": -6.428,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "change_pct": -7.425,
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 579.0,
-   "price": 541.78,
-   "quote_time": "2026-11-23T13:02:00+08:00",
+   "price": 536.01,
+   "quote_time": "2026-11-23T13:12:00+08:00",
    "source": "tencent",
    "sym": "002371"
   },
   "0700-hk": {
    "change_pct": -1.802,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 344.0,
@@ -134,7 +134,7 @@
   },
   "0981-hk": {
    "change_pct": -2.077,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 49.12,
@@ -145,7 +145,7 @@
   },
   "1024-hk": {
    "change_pct": -2.106,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 20.42,
@@ -156,7 +156,7 @@
   },
   "1347-hk": {
    "change_pct": -2.663,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 75.1,
@@ -167,7 +167,7 @@
   },
   "1810-hk": {
    "change_pct": -1.737,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 27.64,
@@ -177,85 +177,85 @@
    "sym": "1810.HK"
   },
   "300308": {
-   "change_pct": 5.809,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "change_pct": 3.932,
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 393.2,
-   "price": 416.04,
-   "quote_time": "2026-11-23T13:02:00+08:00",
+   "price": 408.66,
+   "quote_time": "2026-11-23T13:12:00+08:00",
    "source": "tencent",
    "sym": "300308"
   },
   "300502": {
-   "change_pct": 9.091,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "change_pct": 6.727,
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 165.0,
-   "price": 180.0,
-   "quote_time": "2026-11-23T13:02:00+08:00",
+   "price": 176.1,
+   "quote_time": "2026-11-23T13:12:00+08:00",
    "source": "tencent",
    "sym": "300502"
   },
   "600900": {
-   "change_pct": -1.044,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "change_pct": -0.633,
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 31.62,
-   "price": 31.29,
-   "quote_time": "2026-11-23T13:02:00+08:00",
+   "price": 31.42,
+   "quote_time": "2026-11-23T13:12:00+08:00",
    "source": "tencent",
    "sym": "600900"
   },
   "601138": {
-   "change_pct": 1.614,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "change_pct": 1.103,
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 37.17,
-   "price": 37.77,
-   "quote_time": "2026-11-23T13:02:01+08:00",
+   "price": 37.58,
+   "quote_time": "2026-11-23T13:12:01+08:00",
    "source": "tencent",
    "sym": "601138"
   },
   "603986": {
-   "change_pct": 1.758,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "change_pct": 0.937,
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 205.88,
-   "price": 209.5,
-   "quote_time": "2026-11-23T13:02:00+08:00",
+   "price": 207.81,
+   "quote_time": "2026-11-23T13:12:00+08:00",
    "source": "tencent",
    "sym": "603986"
   },
   "688041": {
-   "change_pct": -2.423,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "change_pct": -3.129,
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 164.25,
-   "price": 160.27,
-   "quote_time": "2026-11-23T13:02:01+08:00",
+   "price": 159.11,
+   "quote_time": "2026-11-23T13:12:01+08:00",
    "source": "tencent",
    "sym": "688041"
   },
   "688256": {
-   "change_pct": -1.935,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "change_pct": -2.436,
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "cn_equity",
    "market": "cn_equity",
    "prev_close": 920.0,
-   "price": 902.2,
-   "quote_time": "2026-11-23T13:02:00+08:00",
+   "price": 897.59,
+   "quote_time": "2026-11-23T13:12:00+08:00",
    "source": "tencent",
    "sym": "688256"
   },
   "9888-hk": {
    "change_pct": -2.03,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 64.05,
@@ -266,7 +266,7 @@
   },
   "9988-hk": {
    "change_pct": -1.44,
-   "fetched_at": "2026-11-23T13:02:00+08:00",
+   "fetched_at": "2026-11-23T13:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 83.35,
