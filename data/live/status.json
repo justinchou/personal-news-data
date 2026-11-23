@@ -1,23 +1,23 @@
 {
- "generated_at": "2026-11-23T09:27:01+08:00",
+ "generated_at": "2026-11-23T09:32:00+08:00",
  "groups": {
   "cn_equity": {
-   "duration_ms": 1278,
+   "duration_ms": 751,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-20T15:17:00+08:00",
-   "health": "closed",
+   "fetched_at": "2026-11-23T09:32:00+08:00",
+   "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
    "market": "cn_equity",
    "missing": [],
    "next_eligible_at": null,
-   "open": false,
+   "open": true,
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 30,
-   "status": "closed"
+   "source_lag_s": 0,
+   "status": "fetched"
   },
   "crypto": {
    "duration_ms": 207,
@@ -35,13 +35,13 @@
    "quote_time_origin": "exchange",
    "source": "coinbase",
    "source_lag_s": 2,
-   "status": "fetched"
+   "status": "not_due"
   },
   "futures_fx": {
-   "duration_ms": 1074,
+   "duration_ms": 754,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-23T09:17:01+08:00",
+   "fetched_at": "2026-11-23T09:32:00+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -52,26 +52,26 @@
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 195424,
-   "status": "not_due"
+   "source_lag_s": 61,
+   "status": "fetched"
   },
   "hk_equity": {
-   "duration_ms": 1197,
+   "duration_ms": 1205,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-20T16:32:00+08:00",
-   "health": "closed",
+   "fetched_at": "2026-11-23T09:32:00+08:00",
+   "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
    "market": "hk_equity",
    "missing": [],
    "next_eligible_at": null,
-   "open": false,
+   "open": true,
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 1410,
-   "status": "closed"
+   "source_lag_s": 929,
+   "status": "fetched"
   },
   "us_equity": {
    "duration_ms": 780,
@@ -93,7 +93,7 @@
   }
  },
  "note": "generated_at is the last cycle that observed any group. health and fetched_at are per group. An unchanged price with a new fetched_at is a successful observation. closed is not a failure.",
- "ran_at": "2026-11-23T09:27:01+08:00",
+ "ran_at": "2026-11-23T09:32:00+08:00",
  "role": "collector",
- "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=not_due crypto=fetched/207ms"
+ "summary": "us_equity=closed hk_equity=fetched/1205ms cn_equity=fetched/751ms futures_fx=fetched/754ms crypto=not_due"
 }
