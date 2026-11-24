@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-24T12:12:01+08:00",
+ "generated_at": "2026-11-24T12:17:01+08:00",
  "groups": {
   "cn_equity": {
    "duration_ms": 1639,
@@ -20,10 +20,10 @@
    "status": "closed"
   },
   "crypto": {
-   "duration_ms": 246,
+   "duration_ms": 255,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-24T12:07:00+08:00",
+   "fetched_at": "2026-11-24T12:17:01+08:00",
    "health": "ok",
    "http_attempts": 4,
    "http_wait_s": 0.0,
@@ -34,14 +34,14 @@
    "origin_error": null,
    "quote_time_origin": "exchange",
    "source": "coinbase",
-   "source_lag_s": 1,
-   "status": "not_due"
+   "source_lag_s": 2,
+   "status": "fetched"
   },
   "futures_fx": {
-   "duration_ms": 630,
+   "duration_ms": 1036,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-24T12:02:01+08:00",
+   "fetched_at": "2026-11-24T12:17:01+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -52,8 +52,8 @@
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 59,
-   "status": "not_due"
+   "source_lag_s": 83,
+   "status": "fetched"
   },
   "hk_equity": {
    "duration_ms": 689,
@@ -71,7 +71,7 @@
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 908,
-   "status": "fetched"
+   "status": "not_due"
   },
   "us_equity": {
    "duration_ms": 907,
@@ -93,7 +93,7 @@
   }
  },
  "note": "generated_at is the last cycle that observed any group. health and fetched_at are per group. An unchanged price with a new fetched_at is a successful observation. closed is not a failure.",
- "ran_at": "2026-11-24T12:12:01+08:00",
+ "ran_at": "2026-11-24T12:17:01+08:00",
  "role": "collector",
- "summary": "us_equity=closed hk_equity=fetched/689ms cn_equity=closed futures_fx=not_due crypto=not_due"
+ "summary": "us_equity=closed hk_equity=not_due cn_equity=closed futures_fx=fetched/1036ms crypto=fetched/255ms"
 }
