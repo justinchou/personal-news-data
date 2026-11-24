@@ -1,10 +1,10 @@
 {
  "cycle": {
-  "ran_at": "2026-11-24T12:47:01+08:00",
+  "ran_at": "2026-11-24T12:52:01+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=not_due cn_equity=closed futures_fx=fetched/2620ms crypto=fetched/250ms"
+  "summary": "us_equity=closed hk_equity=unchanged/1534ms cn_equity=closed futures_fx=not_due crypto=not_due"
  },
- "generated_at": "2026-11-24T12:47:01+08:00",
+ "generated_at": "2026-11-24T12:52:01+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -40,7 +40,7 @@
    "quote_time_origin": "exchange",
    "source": "coinbase",
    "source_lag_s": 1,
-   "status": "fetched"
+   "status": "not_due"
   },
   "futures_fx": {
    "calendar_valid": false,
@@ -58,12 +58,12 @@
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 80,
-   "status": "fetched"
+   "status": "not_due"
   },
   "hk_equity": {
    "calendar_valid": true,
-   "duration_ms": 1238,
-   "fetched_at": "2026-11-24T12:42:00+08:00",
+   "duration_ms": 1534,
+   "fetched_at": "2026-11-24T12:52:01+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -75,8 +75,8 @@
    "open": true,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 2521,
-   "status": "not_due"
+   "source_lag_s": 3122,
+   "status": "unchanged"
   },
   "us_equity": {
    "calendar_valid": true,
@@ -123,7 +123,7 @@
   },
   "0700-hk": {
    "change_pct": -0.756,
-   "fetched_at": "2026-11-24T12:42:00+08:00",
+   "fetched_at": "2026-11-24T12:52:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 344.0,
@@ -134,7 +134,7 @@
   },
   "0981-hk": {
    "change_pct": 1.723,
-   "fetched_at": "2026-11-24T12:42:00+08:00",
+   "fetched_at": "2026-11-24T12:52:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 48.74,
@@ -145,7 +145,7 @@
   },
   "1024-hk": {
    "change_pct": -2.786,
-   "fetched_at": "2026-11-24T12:42:00+08:00",
+   "fetched_at": "2026-11-24T12:52:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 20.1,
@@ -156,7 +156,7 @@
   },
   "1347-hk": {
    "change_pct": 1.344,
-   "fetched_at": "2026-11-24T12:42:00+08:00",
+   "fetched_at": "2026-11-24T12:52:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 74.4,
@@ -167,7 +167,7 @@
   },
   "1810-hk": {
    "change_pct": -4.36,
-   "fetched_at": "2026-11-24T12:42:00+08:00",
+   "fetched_at": "2026-11-24T12:52:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 27.52,
@@ -255,7 +255,7 @@
   },
   "9888-hk": {
    "change_pct": -2.282,
-   "fetched_at": "2026-11-24T12:42:00+08:00",
+   "fetched_at": "2026-11-24T12:52:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 63.55,
@@ -266,7 +266,7 @@
   },
   "9988-hk": {
    "change_pct": -0.783,
-   "fetched_at": "2026-11-24T12:42:00+08:00",
+   "fetched_at": "2026-11-24T12:52:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 83.05,
