@@ -1,8 +1,8 @@
 {
  "cycle": {
-  "ran_at": "2026-11-24T16:07:00+08:00",
+  "ran_at": "2026-11-24T16:12:01+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=not_due cn_equity=closed futures_fx=not_due crypto=fetched/261ms"
+  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=not_due crypto=not_due"
  },
  "generated_at": "2026-11-24T16:07:00+08:00",
  "groups": {
@@ -40,7 +40,7 @@
    "quote_time_origin": "exchange",
    "source": "coinbase",
    "source_lag_s": 3,
-   "status": "fetched"
+   "status": "not_due"
   },
   "futures_fx": {
    "calendar_valid": false,
@@ -64,19 +64,19 @@
    "calendar_valid": true,
    "duration_ms": 840,
    "fetched_at": "2026-11-24T16:02:01+08:00",
-   "health": "ok",
+   "health": "closed",
    "http_attempts": 1,
    "http_wait_s": 0.0,
    "market": "hk_equity",
    "missing": [],
    "name": "港股（HKEX 证券市场）",
-   "next_close_bj": "2026-11-24 16:10",
-   "next_open_bj": null,
-   "open": true,
+   "next_close_bj": null,
+   "next_open_bj": "2026-11-25 09:30",
+   "open": false,
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 909,
-   "status": "not_due"
+   "status": "closed"
   },
   "us_equity": {
    "calendar_valid": true,
