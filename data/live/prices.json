@@ -1,10 +1,10 @@
 {
  "cycle": {
-  "ran_at": "2026-11-24T17:37:01+08:00",
+  "ran_at": "2026-11-24T17:47:01+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=not_due crypto=fetched/227ms"
+  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=fetched/1045ms crypto=fetched/241ms"
  },
- "generated_at": "2026-11-24T17:37:01+08:00",
+ "generated_at": "2026-11-24T17:47:01+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -26,8 +26,8 @@
   },
   "crypto": {
    "calendar_valid": true,
-   "duration_ms": 227,
-   "fetched_at": "2026-11-24T17:37:01+08:00",
+   "duration_ms": 241,
+   "fetched_at": "2026-11-24T17:47:01+08:00",
    "health": "ok",
    "http_attempts": 4,
    "http_wait_s": 0.0,
@@ -44,8 +44,8 @@
   },
   "futures_fx": {
    "calendar_valid": false,
-   "duration_ms": 819,
-   "fetched_at": "2026-11-24T17:32:01+08:00",
+   "duration_ms": 1045,
+   "fetched_at": "2026-11-24T17:47:01+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -57,8 +57,8 @@
    "open": true,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 60,
-   "status": "not_due"
+   "source_lag_s": 58,
+   "status": "fetched"
   },
   "hk_equity": {
    "calendar_valid": true,
@@ -364,25 +364,25 @@
    "sym": "AVGO"
   },
   "brent": {
-   "change_pct": -0.092,
-   "fetched_at": "2026-11-24T17:32:01+08:00",
+   "change_pct": -0.058,
+   "fetched_at": "2026-11-24T17:47:01+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 86.68,
-   "price": 86.6,
-   "quote_time": "2026-11-24T17:31:01+08:00",
+   "price": 86.63,
+   "quote_time": "2026-11-24T17:46:03+08:00",
    "source": "tencent",
    "sym": "Brent Crude Oil"
   },
   "btc": {
    "change_basis": "24h",
-   "change_pct": -2.336,
-   "fetched_at": "2026-11-24T17:37:01+08:00",
+   "change_pct": -2.222,
+   "fetched_at": "2026-11-24T17:47:01+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 61361.27,
-   "price": 59928.13,
-   "quote_time": "2026-11-24T17:37:00+08:00",
+   "price": 59998.12,
+   "quote_time": "2026-11-24T17:47:00+08:00",
    "source": "coinbase",
    "sym": "Bitcoin"
   },
@@ -421,13 +421,13 @@
   },
   "eth": {
    "change_basis": "24h",
-   "change_pct": -2.175,
-   "fetched_at": "2026-11-24T17:37:01+08:00",
+   "change_pct": -2.016,
+   "fetched_at": "2026-11-24T17:47:01+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 1721.21,
-   "price": 1683.78,
-   "quote_time": "2026-11-24T17:36:59+08:00",
+   "price": 1686.51,
+   "quote_time": "2026-11-24T17:46:59+08:00",
    "source": "coinbase",
    "sym": "Ethereum"
   },
@@ -443,13 +443,13 @@
    "sym": "GEV"
   },
   "gold_usd": {
-   "change_pct": -0.934,
-   "fetched_at": "2026-11-24T17:32:01+08:00",
+   "change_pct": -0.884,
+   "fetched_at": "2026-11-24T17:47:01+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 3681.7,
-   "price": 3647.31,
-   "quote_time": "2026-11-24T17:31:01+08:00",
+   "price": 3649.17,
+   "quote_time": "2026-11-24T17:46:04+08:00",
    "source": "tencent",
    "sym": "Gold (USD/oz)"
   },
@@ -675,12 +675,12 @@
   },
   "usdcny": {
    "change_pct": -0.026,
-   "fetched_at": "2026-11-24T17:32:01+08:00",
+   "fetched_at": "2026-11-24T17:47:01+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 6.6659999999999995,
    "price": 6.6643,
-   "quote_time": "2026-11-24T17:31:24+08:00",
+   "quote_time": "2026-11-24T17:46:31+08:00",
    "source": "tencent",
    "sym": "USD/CNY"
   },
@@ -718,13 +718,13 @@
    "sym": "WDC"
   },
   "wti": {
-   "change_pct": -0.212,
-   "fetched_at": "2026-11-24T17:32:01+08:00",
+   "change_pct": -0.249,
+   "fetched_at": "2026-11-24T17:47:01+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 80.17,
-   "price": 80.0,
-   "quote_time": "2026-11-24T17:31:01+08:00",
+   "price": 79.97,
+   "quote_time": "2026-11-24T17:46:07+08:00",
    "source": "tencent",
    "sym": "WTI Crude Oil"
   }
