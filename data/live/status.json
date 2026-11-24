@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-25T02:37:01+08:00",
+ "generated_at": "2026-11-25T02:42:00+08:00",
  "groups": {
   "cn_equity": {
    "duration_ms": 835,
@@ -35,7 +35,7 @@
    "quote_time_origin": "exchange",
    "source": "coinbase",
    "source_lag_s": 1,
-   "status": "fetched"
+   "status": "not_due"
   },
   "futures_fx": {
    "duration_ms": 831,
@@ -74,10 +74,10 @@
    "status": "closed"
   },
   "us_equity": {
-   "duration_ms": 1271,
+   "duration_ms": 1633,
    "error": null,
    "error_at": null,
-   "fetched_at": "2026-11-25T02:32:00+08:00",
+   "fetched_at": "2026-11-25T02:42:00+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -88,12 +88,12 @@
    "origin_error": null,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 25,
-   "status": "not_due"
+   "source_lag_s": 23,
+   "status": "fetched"
   }
  },
  "note": "generated_at is the last cycle that observed any group. health and fetched_at are per group. An unchanged price with a new fetched_at is a successful observation. closed is not a failure.",
- "ran_at": "2026-11-25T02:37:01+08:00",
+ "ran_at": "2026-11-25T02:42:00+08:00",
  "role": "collector",
- "summary": "us_equity=not_due hk_equity=closed cn_equity=closed futures_fx=not_due crypto=fetched/166ms"
+ "summary": "us_equity=fetched/1633ms hk_equity=closed cn_equity=closed futures_fx=not_due crypto=not_due"
 }
