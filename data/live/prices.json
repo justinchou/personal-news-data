@@ -1,10 +1,10 @@
 {
  "cycle": {
-  "ran_at": "2026-11-26T12:07:00+08:00",
+  "ran_at": "2026-11-26T12:12:01+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=not_due cn_equity=closed futures_fx=not_due crypto=fetched/242ms"
+  "summary": "us_equity=closed hk_equity=fetched/917ms cn_equity=closed futures_fx=not_due crypto=not_due"
  },
- "generated_at": "2026-11-26T12:07:00+08:00",
+ "generated_at": "2026-11-26T12:12:01+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -40,7 +40,7 @@
    "quote_time_origin": "exchange",
    "source": "coinbase",
    "source_lag_s": 1,
-   "status": "fetched"
+   "status": "not_due"
   },
   "futures_fx": {
    "calendar_valid": false,
@@ -62,8 +62,8 @@
   },
   "hk_equity": {
    "calendar_valid": true,
-   "duration_ms": 1143,
-   "fetched_at": "2026-11-26T12:02:00+08:00",
+   "duration_ms": 917,
+   "fetched_at": "2026-11-26T12:12:01+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -75,8 +75,8 @@
    "open": true,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 916,
-   "status": "not_due"
+   "source_lag_s": 912,
+   "status": "fetched"
   },
   "us_equity": {
    "calendar_valid": true,
@@ -123,56 +123,56 @@
   },
   "0700-hk": {
    "change_pct": 2.134,
-   "fetched_at": "2026-11-26T12:02:00+08:00",
+   "fetched_at": "2026-11-26T12:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 337.4,
    "price": 344.6,
-   "quote_time": "2026-11-26T11:46:55+08:00",
+   "quote_time": "2026-11-26T11:56:59+08:00",
    "source": "tencent",
    "sym": "0700.HK"
   },
   "0981-hk": {
-   "change_pct": 2.031,
-   "fetched_at": "2026-11-26T12:02:00+08:00",
+   "change_pct": 1.766,
+   "fetched_at": "2026-11-26T12:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 45.3,
-   "price": 46.22,
-   "quote_time": "2026-11-26T11:46:54+08:00",
+   "price": 46.1,
+   "quote_time": "2026-11-26T11:56:49+08:00",
    "source": "tencent",
    "sym": "0981.HK"
   },
   "1024-hk": {
-   "change_pct": 2.971,
-   "fetched_at": "2026-11-26T12:02:00+08:00",
+   "change_pct": 2.664,
+   "fetched_at": "2026-11-26T12:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 19.52,
-   "price": 20.1,
-   "quote_time": "2026-11-26T11:46:44+08:00",
+   "price": 20.04,
+   "quote_time": "2026-11-26T11:57:00+08:00",
    "source": "tencent",
    "sym": "1024.HK"
   },
   "1347-hk": {
-   "change_pct": 4.48,
-   "fetched_at": "2026-11-26T12:02:00+08:00",
+   "change_pct": 3.92,
+   "fetched_at": "2026-11-26T12:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 62.5,
-   "price": 65.3,
-   "quote_time": "2026-11-26T11:46:54+08:00",
+   "price": 64.95,
+   "quote_time": "2026-11-26T11:56:55+08:00",
    "source": "tencent",
    "sym": "1347.HK"
   },
   "1810-hk": {
    "change_pct": 1.732,
-   "fetched_at": "2026-11-26T12:02:00+08:00",
+   "fetched_at": "2026-11-26T12:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 26.56,
    "price": 27.02,
-   "quote_time": "2026-11-26T11:46:49+08:00",
+   "quote_time": "2026-11-26T11:56:57+08:00",
    "source": "tencent",
    "sym": "1810.HK"
   },
@@ -254,24 +254,24 @@
    "sym": "688256"
   },
   "9888-hk": {
-   "change_pct": 0.494,
-   "fetched_at": "2026-11-26T12:02:00+08:00",
+   "change_pct": 0.165,
+   "fetched_at": "2026-11-26T12:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 60.7,
-   "price": 61.0,
-   "quote_time": "2026-11-26T11:46:55+08:00",
+   "price": 60.8,
+   "quote_time": "2026-11-26T11:56:54+08:00",
    "source": "tencent",
    "sym": "9888.HK"
   },
   "9988-hk": {
    "change_pct": 3.387,
-   "fetched_at": "2026-11-26T12:02:00+08:00",
+   "fetched_at": "2026-11-26T12:12:01+08:00",
    "group": "hk_equity",
    "market": "hk_equity",
    "prev_close": 81.2,
    "price": 83.95,
-   "quote_time": "2026-11-26T11:46:53+08:00",
+   "quote_time": "2026-11-26T11:56:57+08:00",
    "source": "tencent",
    "sym": "9988.HK"
   },
