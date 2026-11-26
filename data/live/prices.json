@@ -1,10 +1,10 @@
 {
  "cycle": {
-  "ran_at": "2026-11-26T19:27:00+08:00",
+  "ran_at": "2026-11-26T19:32:00+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=not_due crypto=fetched/200ms"
+  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=fetched/1073ms crypto=not_due"
  },
- "generated_at": "2026-11-26T19:27:00+08:00",
+ "generated_at": "2026-11-26T19:32:00+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -40,12 +40,12 @@
    "quote_time_origin": "exchange",
    "source": "coinbase",
    "source_lag_s": 2,
-   "status": "fetched"
+   "status": "not_due"
   },
   "futures_fx": {
    "calendar_valid": false,
-   "duration_ms": 845,
-   "fetched_at": "2026-11-26T19:17:00+08:00",
+   "duration_ms": 1073,
+   "fetched_at": "2026-11-26T19:32:00+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -57,8 +57,8 @@
    "open": true,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 59,
-   "status": "not_due"
+   "source_lag_s": 63,
+   "status": "fetched"
   },
   "hk_equity": {
    "calendar_valid": true,
@@ -364,13 +364,13 @@
    "sym": "AVGO"
   },
   "brent": {
-   "change_pct": 0.463,
-   "fetched_at": "2026-11-26T19:17:00+08:00",
+   "change_pct": 0.53,
+   "fetched_at": "2026-11-26T19:32:00+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 90.64,
-   "price": 91.06,
-   "quote_time": "2026-11-26T19:16:01+08:00",
+   "price": 91.12,
+   "quote_time": "2026-11-26T19:30:57+08:00",
    "source": "tencent",
    "sym": "Brent Crude Oil"
   },
@@ -443,13 +443,13 @@
    "sym": "GEV"
   },
   "gold_usd": {
-   "change_pct": 0.748,
-   "fetched_at": "2026-11-26T19:17:00+08:00",
+   "change_pct": 0.813,
+   "fetched_at": "2026-11-26T19:32:00+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 3564.6,
-   "price": 3591.27,
-   "quote_time": "2026-11-26T19:16:01+08:00",
+   "price": 3593.57,
+   "quote_time": "2026-11-26T19:31:04+08:00",
    "source": "tencent",
    "sym": "Gold (USD/oz)"
   },
@@ -674,13 +674,13 @@
    "sym": "TSM"
   },
   "usdcny": {
-   "change_pct": -0.111,
-   "fetched_at": "2026-11-26T19:17:00+08:00",
+   "change_pct": -0.109,
+   "fetched_at": "2026-11-26T19:32:00+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 6.6681,
-   "price": 6.6607,
-   "quote_time": "2026-11-26T19:16:31+08:00",
+   "price": 6.6608,
+   "quote_time": "2026-11-26T19:31:26+08:00",
    "source": "tencent",
    "sym": "USD/CNY"
   },
@@ -718,13 +718,13 @@
    "sym": "WDC"
   },
   "wti": {
-   "change_pct": 0.92,
-   "fetched_at": "2026-11-26T19:17:00+08:00",
+   "change_pct": 1.052,
+   "fetched_at": "2026-11-26T19:32:00+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 83.68,
-   "price": 84.45,
-   "quote_time": "2026-11-26T19:16:02+08:00",
+   "price": 84.56,
+   "quote_time": "2026-11-26T19:31:03+08:00",
    "source": "tencent",
    "sym": "WTI Crude Oil"
   }
