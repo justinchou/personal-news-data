@@ -1,10 +1,10 @@
 {
  "cycle": {
-  "ran_at": "2026-11-28T05:07:01+08:00",
+  "ran_at": "2026-11-28T05:17:01+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=not_due crypto=fetched/126ms"
+  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=unchanged/1386ms crypto=fetched/117ms"
  },
- "generated_at": "2026-11-28T05:07:01+08:00",
+ "generated_at": "2026-11-28T05:17:01+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -26,8 +26,8 @@
   },
   "crypto": {
    "calendar_valid": true,
-   "duration_ms": 126,
-   "fetched_at": "2026-11-28T05:07:01+08:00",
+   "duration_ms": 117,
+   "fetched_at": "2026-11-28T05:17:01+08:00",
    "health": "ok",
    "http_attempts": 4,
    "http_wait_s": 0.0,
@@ -39,13 +39,13 @@
    "open": true,
    "quote_time_origin": "exchange",
    "source": "coinbase",
-   "source_lag_s": 9,
+   "source_lag_s": 3,
    "status": "fetched"
   },
   "futures_fx": {
    "calendar_valid": false,
-   "duration_ms": 1495,
-   "fetched_at": "2026-11-28T05:02:01+08:00",
+   "duration_ms": 1386,
+   "fetched_at": "2026-11-28T05:17:01+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -57,8 +57,8 @@
    "open": true,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 7329,
-   "status": "not_due"
+   "source_lag_s": 8229,
+   "status": "unchanged"
   },
   "hk_equity": {
    "calendar_valid": true,
@@ -365,7 +365,7 @@
   },
   "brent": {
    "change_pct": -1.058,
-   "fetched_at": "2026-11-28T05:02:01+08:00",
+   "fetched_at": "2026-11-28T05:17:01+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 91.67,
@@ -376,13 +376,13 @@
   },
   "btc": {
    "change_basis": "24h",
-   "change_pct": -1.643,
-   "fetched_at": "2026-11-28T05:07:01+08:00",
+   "change_pct": -1.57,
+   "fetched_at": "2026-11-28T05:17:01+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 60740.49,
-   "price": 59742.53,
-   "quote_time": "2026-11-28T05:07:00+08:00",
+   "price": 59787.02,
+   "quote_time": "2026-11-28T05:16:59+08:00",
    "source": "coinbase",
    "sym": "Bitcoin"
   },
@@ -421,13 +421,13 @@
   },
   "eth": {
    "change_basis": "24h",
-   "change_pct": -2.174,
-   "fetched_at": "2026-11-28T05:07:01+08:00",
+   "change_pct": -2.131,
+   "fetched_at": "2026-11-28T05:17:01+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 1702.61,
-   "price": 1665.59,
-   "quote_time": "2026-11-28T05:06:52+08:00",
+   "price": 1666.32,
+   "quote_time": "2026-11-28T05:16:58+08:00",
    "source": "coinbase",
    "sym": "Ethereum"
   },
@@ -444,7 +444,7 @@
   },
   "gold_usd": {
    "change_pct": 3.357,
-   "fetched_at": "2026-11-28T05:02:01+08:00",
+   "fetched_at": "2026-11-28T05:17:01+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 3564.6,
@@ -675,7 +675,7 @@
   },
   "usdcny": {
    "change_pct": -0.089,
-   "fetched_at": "2026-11-28T05:02:01+08:00",
+   "fetched_at": "2026-11-28T05:17:01+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 6.659999999999999,
@@ -719,7 +719,7 @@
   },
   "wti": {
    "change_pct": -0.514,
-   "fetched_at": "2026-11-28T05:02:01+08:00",
+   "fetched_at": "2026-11-28T05:17:01+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 83.68,
