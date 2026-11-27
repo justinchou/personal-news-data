@@ -1,8 +1,8 @@
 {
  "cycle": {
-  "ran_at": "2026-11-28T05:57:00+08:00",
+  "ran_at": "2026-11-28T06:02:01+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=not_due crypto=fetched/112ms"
+  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=closed crypto=not_due"
  },
  "generated_at": "2026-11-28T05:57:00+08:00",
  "groups": {
@@ -40,25 +40,25 @@
    "quote_time_origin": "exchange",
    "source": "coinbase",
    "source_lag_s": 1,
-   "status": "fetched"
+   "status": "not_due"
   },
   "futures_fx": {
    "calendar_valid": false,
    "duration_ms": 1272,
    "fetched_at": "2026-11-28T05:47:01+08:00",
-   "health": "ok",
+   "health": "closed",
    "http_attempts": 1,
    "http_wait_s": 0.0,
    "market": "cme_globex",
    "missing": [],
    "name": "COMEX 黄金 / NYMEX 原油期货（CME Globex）",
-   "next_close_bj": "2026-11-28 06:00",
-   "next_open_bj": null,
-   "open": true,
+   "next_close_bj": null,
+   "next_open_bj": "2026-11-30 07:00",
+   "open": false,
    "quote_time_origin": "source",
    "source": "tencent",
    "source_lag_s": 10029,
-   "status": "not_due"
+   "status": "closed"
   },
   "hk_equity": {
    "calendar_valid": true,
