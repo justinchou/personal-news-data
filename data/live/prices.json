@@ -1,10 +1,10 @@
 {
  "cycle": {
-  "ran_at": "2026-11-28T04:57:00+08:00",
+  "ran_at": "2026-11-28T05:02:01+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=not_due crypto=fetched/123ms"
+  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=unchanged/1495ms crypto=not_due"
  },
- "generated_at": "2026-11-28T04:57:00+08:00",
+ "generated_at": "2026-11-28T05:02:01+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -40,12 +40,12 @@
    "quote_time_origin": "exchange",
    "source": "coinbase",
    "source_lag_s": 1,
-   "status": "fetched"
+   "status": "not_due"
   },
   "futures_fx": {
    "calendar_valid": false,
-   "duration_ms": 1550,
-   "fetched_at": "2026-11-28T04:47:00+08:00",
+   "duration_ms": 1495,
+   "fetched_at": "2026-11-28T05:02:01+08:00",
    "health": "ok",
    "http_attempts": 1,
    "http_wait_s": 0.0,
@@ -57,8 +57,8 @@
    "open": true,
    "quote_time_origin": "source",
    "source": "tencent",
-   "source_lag_s": 6428,
-   "status": "not_due"
+   "source_lag_s": 7329,
+   "status": "unchanged"
   },
   "hk_equity": {
    "calendar_valid": true,
@@ -365,7 +365,7 @@
   },
   "brent": {
    "change_pct": -1.058,
-   "fetched_at": "2026-11-28T04:47:00+08:00",
+   "fetched_at": "2026-11-28T05:02:01+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 91.67,
@@ -444,7 +444,7 @@
   },
   "gold_usd": {
    "change_pct": 3.357,
-   "fetched_at": "2026-11-28T04:47:00+08:00",
+   "fetched_at": "2026-11-28T05:02:01+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 3564.6,
@@ -675,7 +675,7 @@
   },
   "usdcny": {
    "change_pct": -0.089,
-   "fetched_at": "2026-11-28T04:47:00+08:00",
+   "fetched_at": "2026-11-28T05:02:01+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 6.659999999999999,
@@ -719,7 +719,7 @@
   },
   "wti": {
    "change_pct": -0.514,
-   "fetched_at": "2026-11-28T04:47:00+08:00",
+   "fetched_at": "2026-11-28T05:02:01+08:00",
    "group": "futures_fx",
    "market": "cme_globex",
    "prev_close": 83.68,
