@@ -1,10 +1,10 @@
 {
  "cycle": {
-  "ran_at": "2026-11-28T16:27:00+08:00",
+  "ran_at": "2026-11-28T16:37:00+08:00",
   "role": "collector",
-  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=closed crypto=fetched/95ms"
+  "summary": "us_equity=closed hk_equity=closed cn_equity=closed futures_fx=closed crypto=fetched/94ms"
  },
- "generated_at": "2026-11-28T16:27:00+08:00",
+ "generated_at": "2026-11-28T16:37:00+08:00",
  "groups": {
   "cn_equity": {
    "calendar_valid": true,
@@ -26,8 +26,8 @@
   },
   "crypto": {
    "calendar_valid": true,
-   "duration_ms": 95,
-   "fetched_at": "2026-11-28T16:27:00+08:00",
+   "duration_ms": 94,
+   "fetched_at": "2026-11-28T16:37:00+08:00",
    "health": "ok",
    "http_attempts": 4,
    "http_wait_s": 0.0,
@@ -39,7 +39,7 @@
    "open": true,
    "quote_time_origin": "exchange",
    "source": "coinbase",
-   "source_lag_s": 6,
+   "source_lag_s": 2,
    "status": "fetched"
   },
   "futures_fx": {
@@ -376,13 +376,13 @@
   },
   "btc": {
    "change_basis": "24h",
-   "change_pct": -3.284,
-   "fetched_at": "2026-11-28T16:27:00+08:00",
+   "change_pct": -3.409,
+   "fetched_at": "2026-11-28T16:37:00+08:00",
    "group": "crypto",
    "market": "crypto",
    "prev_close": 61646.93,
-   "price": 59622.15,
-   "quote_time": "2026-11-28T16:26:59+08:00",
+   "price": 59545.14,
+   "quote_time": "2026-11-28T16:36:59+08:00",
    "source": "coinbase",
    "sym": "Bitcoin"
   },
@@ -421,13 +421,13 @@
   },
   "eth": {
    "change_basis": "24h",
-   "change_pct": -4.308,
-   "fetched_at": "2026-11-28T16:27:00+08:00",
+   "change_pct": -4.503,
+   "fetched_at": "2026-11-28T16:37:00+08:00",
    "group": "crypto",
    "market": "crypto",
-   "prev_close": 1729.24,
-   "price": 1654.75,
-   "quote_time": "2026-11-28T16:26:54+08:00",
+   "prev_close": 1728.91,
+   "price": 1651.06,
+   "quote_time": "2026-11-28T16:36:58+08:00",
    "source": "coinbase",
    "sym": "Ethereum"
   },
